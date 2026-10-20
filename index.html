@@ -2,210 +2,468 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#080916">
-<title>CINEAI — Your AI Movie Universe</title>
-<style>
-:root{--bg:#080916;--panel:#11152a;--line:#30395e;--purple:#9b7bff;--cyan:#68e5ff;--text:#f4f2ff;--muted:#a4a8c5}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 75% 0%,#252054 0%,#0b1023 38%,#070812 75%);color:var(--text);font-family:Arial,system-ui,sans-serif}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 5%;background:#090b19eF;border-bottom:1px solid #6b65b344;backdrop-filter:blur(16px)}
-.logo{font-size:24px;font-weight:900;letter-spacing:1px}.logo span{color:var(--purple)}
-nav{display:flex;gap:16px;flex-wrap:wrap}
-nav a{color:#c4c5e5;text-decoration:none;font-size:13px}
-button,.btn{border:1px solid #7c70c6;background:linear-gradient(120deg,#9b7bff,#6258d8);color:white;padding:11px 15px;border-radius:11px;font-weight:700}
-.secondary{background:#14162c;border-color:#383d65}
-input,select,textarea{width:100%;padding:12px;background:#0b1020;border:1px solid #343957;border-radius:10px;color:white;outline:none}
-input:focus,select:focus,textarea:focus{border-color:var(--cyan)}
-main{max-width:1250px;margin:auto;padding:25px 20px}
-.hero{min-height:330px;display:grid;grid-template-columns:1.4fr .8fr;align-items:center;gap:25px;padding:35px;border:1px solid #6860b477;border-radius:24px;background:linear-gradient(110deg,#171831ee,#11152add),radial-gradient(circle at 80% 30%,#7658d6,transparent 45%);overflow:hidden}
-.eyebrow{color:var(--cyan);font-size:12px;font-weight:bold;letter-spacing:2px}
-h1{font-size:clamp(36px,5vw,62px);line-height:1.05;margin:15px 0}
-h1 span{color:var(--purple)}
-p{color:var(--muted);line-height:1.7}
-.hero-art{min-height:210px;display:grid;place-items:center;position:relative}
-.orb{width:175px;height:175px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#e1fcff,#5d73ff 25%,#6735bb 50%,#0c102c 75%);box-shadow:0 0 70px #7663ff99;position:absolute}
-.ring{width:240px;height:85px;border:2px solid #8e80ff99;border-radius:50%;position:absolute;transform:rotate(-35deg)}
-.ring.two{transform:rotate(45deg);border-color:#68e5ff99}
-.orb-label{z-index:1;background:#101329dd;border:1px solid #9c8dff;padding:16px;border-radius:15px;font-weight:900;letter-spacing:2px}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-section{margin-top:35px;scroll-margin-top:85px}
-.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
-h2{font-size:22px;margin:0}
-.section-head p{font-size:13px;margin:5px 0 0}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
-.chip{border:1px solid #3b4065;border-radius:25px;background:#11152b;color:#d9d9f2;padding:9px 14px}
-.chip.active{background:#6b52c7;border-color:#b6a2ff}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
-.card{background:linear-gradient(150deg,#171a33,#0d1021);border:1px solid #30375a;border-radius:15px;overflow:hidden;transition:.2s;min-width:0}
-.card:hover{transform:translateY(-3px);border-color:#8b7bff}
-.poster{width:100%;aspect-ratio:2/3;display:grid;place-items:center;text-align:center;padding:10px;background:linear-gradient(145deg,#242958,#452b6b,#11152a);font-size:22px;font-weight:900;color:#e7e0ff}
-.poster small{display:block;font-size:10px;color:#b7eaff;margin-top:10px;letter-spacing:2px}
-.card-info{padding:12px}
-.card h3{font-size:15px;margin:0 0 7px}
-.meta{font-size:12px;color:var(--muted)}
-.card-actions{display:flex;align-items:center;justify-content:space-between;gap:5px;margin-top:12px}
-.small-btn{padding:7px 9px;font-size:12px}
-.panel{background:#11152add;border:1px solid var(--line);border-radius:17px;padding:20px}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}
-.stat{padding:14px;background:#0a0e20;border:1px solid #30385b;border-radius:12px}
-.stat strong{font-size:22px;display:block;color:var(--cyan)}
-.stat small{font-size:10px;color:var(--muted)}
-footer{text-align:center;padding:35px 10px;color:#727998;font-size:12px}
-.modal{position:fixed;inset:0;background:#03040de8;z-index:20;display:none;place-items:center;padding:15px;overflow:auto}
-.modal.open{display:grid}
-.modal-box{width:min(650px,100%);max-height:92vh;overflow:auto;padding:22px;background:#11152a;border:1px solid #55558a;border-radius:18px}
-.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.close{background:#1a1e38;border-color:#454a70;padding:7px 11px}
-.stars{display:flex;gap:5px;flex-wrap:wrap;margin:12px 0}
-.stars button{background:none;border:0;color:#646985;font-size:24px;padding:2px}
-.stars button.selected{color:#ffd36b}
-.comment{border:1px solid #30385b;background:#0c1020;padding:12px;border-radius:10px;margin:10px 0}
-.comment p{margin:5px 0 0;overflow-wrap:anywhere}
-.notice{font-size:12px;color:var(--muted)}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#e2eaff;color:#11152a;padding:12px 18px;border-radius:10px;z-index:40;display:none}
-.toast.show{display:block}
-@media(max-width:850px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{grid-template-columns:1fr}.hero-art{min-height:190px}nav{gap:9px}}
-@media(max-width:560px){header{padding:12px;flex-wrap:wrap}.logo{font-size:20px}nav{order:3;width:100%;justify-content:space-between}nav a{font-size:12px}main{padding:15px 12px}.hero{padding:22px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.hero-art{min-height:160px}.orb{width:135px;height:135px}.ring{width:190px;height:70px}.two-col{grid-template-columns:1fr}.stat{padding:9px}.stat strong{font-size:18px}h2{font-size:19px}.modal-box{padding:15px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070914">
+  <meta name="description" content="CINEAI — โลกภาพยนตร์ AI แห่งอนาคต">
+  <title>CINEAI — โลกภาพยนตร์ AI แห่งอนาคต</title>
+  <style>
+    :root {
+      --bg:#070914; --text:#f4f6ff; --muted:#a6aecb;
+      --line:rgba(170,184,255,.17); --cyan:#66e8ff;
+      --purple:#9b7bff; --pink:#ff75d8; --good:#8cf5c5;
+      --danger:#ff8c9a;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; color:var(--text); min-height:100vh;
+      background:radial-gradient(ellipse at 80% 0%,#1a1740,transparent 35%),
+      radial-gradient(ellipse at 5% 25%,#0c2b40,transparent 30%),var(--bg);
+      font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    }
+    button,input { font:inherit; }
+    button { cursor:pointer; }
+    a { color:inherit; text-decoration:none; }
+    .wrap { width:min(1120px,92%); margin:auto; }
+    header {
+      position:sticky; top:0; z-index:10;
+      background:#070914e8; border-bottom:1px solid var(--line);
+      backdrop-filter:blur(16px);
+    }
+    .nav {
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; min-height:70px;
+    }
+    .logo {
+      font-weight:900; letter-spacing:2px; font-size:1.4rem;
+      background:linear-gradient(90deg,var(--cyan),white,var(--purple));
+      color:transparent; background-clip:text;
+    }
+    .navlinks,.navright { display:flex; align-items:center; gap:12px; }
+    .navlinks { color:var(--muted); font-size:.9rem; gap:20px; }
+    .btn {
+      border:1px solid var(--line); border-radius:12px;
+      padding:11px 16px; color:var(--text);
+      background:#ffffff0a; font-weight:700;
+    }
+    .btn:hover { border-color:var(--cyan); }
+    .btn.primary {
+      border:0; background:linear-gradient(110deg,#4eddf4,#9d82ff);
+      color:#080b18;
+    }
+    .btn.small { padding:9px 12px; font-size:.88rem; }
+    .hero {
+      padding:72px 0 48px; display:grid;
+      grid-template-columns:1.1fr .9fr; align-items:center; gap:36px;
+    }
+    .eyebrow {
+      display:inline-flex; gap:8px; align-items:center;
+      border:1px solid #7f8aff55; background:#171a36;
+      border-radius:999px; padding:8px 12px; color:#c9d6ff;
+      font-size:.82rem;
+    }
+    .dot { width:7px; height:7px; border-radius:50%; background:var(--cyan); }
+    h1 { font-size:clamp(2.5rem,6vw,4.5rem); line-height:1.08; margin:20px 0; }
+    .gradient {
+      background:linear-gradient(90deg,var(--cyan),#b8a5ff,var(--pink));
+      background-clip:text; color:transparent;
+    }
+    .hero p,.section-head p,.feature p,.price-card p,.cta p {
+      color:var(--muted); line-height:1.8;
+    }
+    .heroactions { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+    .mini-note { font-size:.82rem; color:#7f89ac!important; }
+    .visual { min-height:350px; position:relative; display:grid; place-items:center; }
+    .orb {
+      width:260px; height:260px; border-radius:50%;
+      background:radial-gradient(circle at 30% 25%,#b2faff,#7a6dff 25%,#271c61 58%,#0a1028 75%);
+      box-shadow:0 0 70px #7766ff44; animation:float 6s ease-in-out infinite;
+      position:relative;
+    }
+    .orb:before,.orb:after {
+      content:""; position:absolute; inset:-30px;
+      border:1px solid #9b9aff55; border-radius:50%;
+      transform:rotateX(68deg) rotateZ(-25deg);
+    }
+    .orb:after { inset:-52px; transform:rotateX(68deg) rotateZ(45deg); border-color:#64e8ff55; }
+    .glass-card {
+      position:absolute; bottom:12px; right:0; width:min(250px,80%);
+      padding:17px; border:1px solid #b7c1ff38; background:#11152cf2;
+      border-radius:18px;
+    }
+    .glass-card b { display:block; margin-bottom:6px; }
+    .glass-card span { font-size:.85rem; color:var(--muted); }
+    @keyframes float { 50% { transform:translateY(-12px) scale(1.03); } }
+    section { padding:48px 0; }
+    .section-head { text-align:center; max-width:700px; margin:0 auto 28px; }
+    .section-head h2 { font-size:clamp(1.8rem,4vw,2.6rem); margin:0 0 10px; }
+    .feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .feature,.price-card {
+      background:linear-gradient(150deg,#151a32,#0e1123);
+      border:1px solid var(--line); border-radius:20px; padding:22px;
+    }
+    .feature-icon {
+      width:44px; height:44px; border-radius:13px;
+      display:grid; place-items:center; background:#4a4e9a44;
+      font-size:1.35rem; margin-bottom:17px;
+    }
+    .feature h3 { margin:0 0 8px; }
+    .feature p { font-size:.94rem; margin:0; }
+    .pricing {
+      display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px; max-width:760px; margin:auto;
+    }
+    .price-card { padding:28px; }
+    .price-card.popular { border-color:#8f83ff; }
+    .tag {
+      display:inline-block; background:#6c5bdc35; color:#c9c0ff;
+      padding:6px 10px; border-radius:999px; font-size:.78rem; font-weight:800;
+    }
+    .price { font-size:2.6rem; font-weight:900; margin:16px 0 4px; }
+    .price small { font-size:.95rem; color:var(--muted); font-weight:500; }
+    .price-card ul { list-style:none; padding:0; margin:22px 0; display:grid; gap:12px; }
+    .price-card li:before { content:"✓"; color:var(--good); font-weight:900; margin-right:9px; }
+    .price-card .btn { width:100%; }
+    .notice { max-width:760px; margin:18px auto 0; color:#818bad; font-size:.82rem; line-height:1.6; text-align:center; }
+    .cta {
+      border:1px solid var(--line); border-radius:24px; padding:32px;
+      text-align:center; background:radial-gradient(ellipse at 50% 0%,#5543a544,transparent 60%),#101326;
+    }
+    .cta h2 { margin-top:0; }
+    footer { border-top:1px solid var(--line); margin-top:35px; padding:24px 0; color:#7f89ac; font-size:.85rem; }
+    .footerrow { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .status { font-size:.86rem; line-height:1.5; margin-top:12px; color:var(--muted); }
+    .status.error { color:var(--danger); }
+    .status.success { color:var(--good); }
+    .modal {
+      position:fixed; inset:0; z-index:50; display:none;
+      align-items:center; justify-content:center; padding:18px;
+      background:#02030be8; backdrop-filter:blur(8px);
+    }
+    .modal.open { display:flex; }
+    .modalbox {
+      width:min(440px,100%); max-height:90vh; overflow:auto;
+      position:relative; padding:26px; background:#11152b;
+      border:1px solid #a6b0ff3b; border-radius:22px;
+    }
+    .close {
+      position:absolute; right:15px; top:12px; border:0;
+      background:transparent; color:#b6bfdc; font-size:1.6rem;
+    }
+    .modalbox h2 { margin:0 0 8px; }
+    .sub { color:var(--muted); line-height:1.6; font-size:.9rem; margin-bottom:20px; }
+    .field { display:grid; gap:7px; margin:14px 0; }
+    .field label { font-size:.88rem; color:#d9def5; }
+    .field input {
+      width:100%; border:1px solid #343b62; border-radius:11px;
+      background:#090c1b; color:white; padding:13px; outline:none;
+    }
+    .field input:focus { border-color:var(--cyan); }
+    .wide { width:100%; margin-top:8px; }
+    .switchline { text-align:center; color:var(--muted); font-size:.9rem; margin-top:18px; }
+    .textbtn { border:0; background:none; color:var(--cyan); font-weight:800; padding:4px; }
+    .account { font-size:.82rem; color:var(--good); max-width:145px; overflow:hidden; text-overflow:ellipsis; }
+    @media(max-width:760px) {
+      .nav { min-height:64px; }
+      .navlinks { display:none; }
+      .hero { grid-template-columns:1fr; padding-top:48px; gap:8px; }
+      .visual { min-height:290px; }
+      .orb { width:200px; height:200px; }
+      .feature-grid,.pricing { grid-template-columns:1fr; }
+      .cta { padding:25px 18px; }
+      h1 { letter-spacing:-1px; }
+    }
+  </style>
 </head>
 <body>
 <header>
-  <div class="logo">CINE<span>AI</span></div>
-  <nav>
-    <a href="#home">หน้าหลัก</a>
-    <a href="#discover">ค้นหาหนัง</a>
-    <a href="#favorites">รายการโปรด</a>
-    <a href="#membership">สมาชิก</a>
-  </nav>
-  <button class="secondary" id="loginBtn">เข้าสู่ระบบ</button>
+  <div class="wrap nav">
+    <a class="logo" href="#">CINEAI.</a>
+    <nav class="navlinks">
+      <a href="#features">จุดเด่น</a>
+      <a href="#membership">แพ็กเกจสมาชิก</a>
+      <a href="#about">เกี่ยวกับเรา</a>
+    </nav>
+    <div class="navright" id="navRight">
+      <button class="btn small" type="button" data-open-auth="login">เข้าสู่ระบบ</button>
+      <button class="btn primary small" type="button" data-open-auth="signup">สมัครสมาชิก</button>
+    </div>
+  </div>
 </header>
-
 <main>
-<section class="hero" id="home">
-  <div>
-    <div class="eyebrow">YOUR AI MOVIE UNIVERSE</div>
-    <h1>ค้นพบโลกภาพยนตร์<br><span>ในแบบของคุณ</span></h1>
-    <p>ให้ CINEAI ช่วยคุณค้นหาภาพยนตร์ที่เข้ากับอารมณ์ สำรวจเรื่องราวใหม่ ๆ และค้นพบหนังเรื่องโปรดเรื่องต่อไปของคุณ</p>
-    <div class="actions">
-      <button onclick="document.querySelector('#mood').scrollIntoView({behavior:'smooth'})">✦ ให้ AI แนะนำหนัง</button>
-      <button class="secondary" onclick="document.querySelector('#discover').scrollIntoView({behavior:'smooth'})">▶ สำรวจภาพยนตร์</button>
+  <div class="wrap hero">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> THE FUTURE OF AI CINEMA</div>
+      <h1>จินตนาการใหม่<br>สู่โลก <span class="gradient">ภาพยนตร์ AI</span></h1>
+      <p>CINEAI พื้นที่สำหรับคนรักเรื่องราวแห่งอนาคต สำรวจไอเดีย โลกแฟนตาซี และผลงานสร้างสรรค์ที่ขับเคลื่อนด้วย AI — จุดเริ่มต้นของเรื่องราวที่คุณจินตนาการได้ไม่รู้จบ</p>
+      <div class="heroactions">
+        <button class="btn primary" type="button" data-open-auth="signup">เริ่มต้นใช้งานฟรี ↗</button>
+        <a class="btn" href="#membership">ดูแพ็กเกจสมาชิก</a>
+      </div>
+      <p class="mini-note">สร้างบัญชีเพื่อเริ่มต้นประสบการณ์ CINEAI</p>
+    </div>
+    <div class="visual">
+      <div class="orb"></div>
+      <div class="glass-card"><b>✦ Imagine Beyond</b><span>เรื่องราวใหม่ ๆ เริ่มต้นจากจินตนาการของคุณ</span></div>
     </div>
   </div>
-  <div class="hero-art"><div class="orb"></div><div class="ring"></div><div class="ring two"></div><div class="orb-label">CINE<span style="color:#68e5ff">AI</span></div></div>
-</section>
-
-<section id="mood">
-  <div class="section-head"><div><h2>✧ วันนี้คุณอยากดูหนังแนวไหน?</h2><p>เลือกอารมณ์ แล้วค้นพบภาพยนตร์ที่ตรงใจ</p></div></div>
-  <div class="filters" id="moodFilters">
-    <button class="chip active" data-mood="ทั้งหมด">ทั้งหมด</button>
-    <button class="chip" data-mood="ไซไฟ">🚀 ไซไฟ</button>
-    <button class="chip" data-mood="แอ็กชัน">⚡ แอ็กชัน</button>
-    <button class="chip" data-mood="ดราม่า">💜 ดราม่า</button>
-    <button class="chip" data-mood="ลึกลับ">🧠 ลึกลับ</button>
-    <button class="chip" data-mood="แฟนตาซี">🌌 แฟนตาซี</button>
-  </div>
-  <div class="panel" id="recommendation"><strong>คำแนะนำจาก CINEAI</strong><p>เลือกแนวภาพยนตร์เพื่อเริ่มค้นหา</p></div>
-</section>
-
-<section id="discover">
-  <div class="section-head"><div><h2>ภาพยนตร์แนะนำ</h2><p>ค้นพบเรื่องราวที่น่าสนใจจากทั่วจักรวาลภาพยนตร์</p></div></div>
-  <input id="search" type="search" placeholder="ค้นหาชื่อหนัง แนวหนัง หรือคำสำคัญ...">
-  <div class="grid" id="movieGrid" style="margin-top:15px"></div>
-</section>
-
-<section id="favorites">
-  <div class="section-head"><div><h2>♡ รายการโปรดของคุณ</h2><p>บันทึกหนังที่อยากดูไว้ในที่เดียว</p></div></div>
-  <div class="grid" id="favoriteGrid"></div>
-</section>
-
-<section id="membership">
-  <div class="section-head"><div><h2>สมาชิก CINEAI</h2><p>เลือกแพ็กเกจที่เหมาะกับคุณ</p></div></div>
-  <div class="two-col">
-    <div class="panel"><div class="eyebrow">EXPLORER</div><h2 style="margin-top:10px">ฟรี</h2><p>สำรวจภาพยนตร์และบันทึกรายการโปรด</p><button class="secondary" onclick="toast('คุณสามารถทดลองใช้เว็บไซต์ได้ฟรี')">เริ่มใช้งาน</button></div>
-    <div class="panel"><div class="eyebrow">CINEAI PREMIUM</div><h2 style="margin-top:10px">฿49 <span style="font-size:13px;color:#a4a8c5">/ เดือน</span></h2><p>แพ็กเกจสมาชิกที่วางแผนไว้สำหรับฟีเจอร์เพิ่มเติม</p><button onclick="showPremium()">สนใจแพ็กเกจนี้</button><p class="notice">ระบบชำระเงินยังไม่ได้เชื่อมต่อ จะไม่มีการเรียกเก็บเงินจากปุ่มนี้</p></div>
-  </div>
-</section>
-
-<section id="account">
-  <div class="panel">
-    <h2>สถิติการค้นพบของคุณ</h2>
-    <div class="stat-grid">
-      <div class="stat"><strong id="exploredCount">0</strong><small>หนังที่เปิดดู</small></div>
-      <div class="stat"><strong id="ratedCount">0</strong><small>หนังที่ให้คะแนน</small></div>
-      <div class="stat"><strong id="savedCount">0</strong><small>หนังที่บันทึก</small></div>
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>ประสบการณ์ใหม่ของ <span class="gradient">AI Cinema</span></h2>
+        <p>พื้นที่รวมเรื่องราว ไอเดีย และโลกจินตนาการในสไตล์แห่งอนาคต</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature"><div class="feature-icon">✧</div><h3>โลกแห่งจินตนาการ</h3><p>พบกับแนวคิดและโลกเรื่องราวหลากหลาย ตั้งแต่ไซไฟ แฟนตาซี ไปจนถึงโลกอนาคต</p></article>
+        <article class="feature"><div class="feature-icon">◈</div><h3>ประสบการณ์ส่วนตัว</h3><p>สร้างบัญชีเพื่อให้ระบบสมาชิกจดจำบัญชีของคุณและต่อยอดฟีเจอร์ในอนาคต</p></article>
+        <article class="feature"><div class="feature-icon">⌘</div><h3>ดีไซน์แห่งอนาคต</h3><p>ใช้งานผ่านมือถือได้ง่าย ด้วยหน้าตาเรียบหรูและเลย์เอาต์ที่ตอบสนองทุกหน้าจอ</p></article>
+      </div>
     </div>
-    <p class="notice">ข้อมูลในเวอร์ชันนี้บันทึกไว้ในเบราว์เซอร์บนอุปกรณ์นี้</p>
-  </div>
-</section>
+  </section>
+  <section id="membership">
+    <div class="wrap">
+      <div class="section-head"><h2>เลือกแพ็กเกจของคุณ</h2><p>เริ่มต้นฟรี หรือเลือกพรีเมียมเพื่อสนับสนุนการพัฒนา CINEAI</p></div>
+      <div class="pricing">
+        <article class="price-card">
+          <span class="tag">เริ่มต้น</span><h3>Free</h3><div class="price">฿0 <small>/ ตลอดไป</small></div>
+          <p>สำหรับผู้ที่อยากเริ่มต้นสำรวจ CINEAI</p>
+          <ul><li>สร้างบัญชีผู้ใช้</li><li>เข้าถึงส่วนพื้นฐานของเว็บไซต์</li><li>ใช้งานผ่านมือถือและคอมพิวเตอร์</li></ul>
+          <button class="btn" type="button" data-open-auth="signup">สมัครสมาชิกฟรี</button>
+        </article>
+        <article class="price-card popular">
+          <span class="tag">พรีเมียม</span><h3>CINEAI Premium</h3><div class="price">฿19 <small>/ เดือน</small></div>
+          <p>สนับสนุนโปรเจกต์และเตรียมพร้อมสำหรับฟีเจอร์พรีเมียม</p>
+          <ul><li>บัญชีสมาชิกพรีเมียมในอนาคต</li><li>ฟีเจอร์พิเศษเมื่อเปิดให้บริการ</li><li>ช่วยสนับสนุนการพัฒนาเว็บไซต์</li></ul>
+          <button class="btn primary" type="button" data-premium>สนใจพรีเมียม</button>
+          <p style="font-size:.82rem">แพ็กเกจรายปี ฿49/ปี จะเปิดให้เลือกเมื่อระบบชำระเงินพร้อมใช้งาน</p>
+        </article>
+      </div>
+      <p class="notice">ระบบชำระเงินพรีเมียมยังไม่เปิดใช้งาน ปุ่มนี้ยังไม่ตัดเงิน ต้องเชื่อมระบบชำระเงินจริงก่อนเปิดรับสมาชิก</p>
+    </div>
+  </section>
+  <section id="about">
+    <div class="wrap">
+      <div class="cta">
+        <h2>เรื่องราวแห่งอนาคต เริ่มที่นี่</h2>
+        <p>เข้าร่วม CINEAI และติดตามการพัฒนาพื้นที่สำหรับคนรักภาพยนตร์และจินตนาการจาก AI</p>
+        <button class="btn primary" type="button" data-open-auth="signup">สร้างบัญชี CINEAI</button>
+        <div class="status" id="mainStatus" role="status"></div>
+      </div>
+    </div>
+  </section>
 </main>
-<footer>CINEAI · YOUR AI MOVIE UNIVERSE · WEBSITE PROTOTYPE</footer>
-
-<div class="modal" id="movieModal">
-  <div class="modal-box">
-    <div class="modal-head"><h2 id="detailTitle">รายละเอียดภาพยนตร์</h2><button class="close" onclick="closeModal('movieModal')">✕</button></div>
-    <div id="detailBody"></div>
-  </div>
-</div>
-
-<div class="modal" id="loginModal">
-  <div class="modal-box">
-    <div class="modal-head"><h2>เข้าสู่ระบบ CINEAI</h2><button class="close" onclick="closeModal('loginModal')">✕</button></div>
-    <p>ส่วนนี้เป็นแบบฟอร์มตัวอย่าง ยังไม่ได้เชื่อมระบบบัญชีผู้ใช้จริง</p>
-    <form id="loginForm">
-      <label for="email">อีเมล</label><input id="email" type="email" required placeholder="you@example.com" style="margin:8px 0 14px">
-      <label for="password">รหัสผ่าน</label><input id="password" type="password" minlength="6" required placeholder="อย่างน้อย 6 ตัวอักษร" style="margin:8px 0 14px">
-      <button type="submit">ทดลองเข้าสู่ระบบ</button>
+<footer><div class="wrap footerrow"><span>© <span id="year"></span> CINEAI. All rights reserved.</span><span>Created for the next generation of imagination.</span></div></footer>
+<div class="modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="modalbox">
+    <button class="close" type="button" id="closeModal" aria-label="ปิด">×</button>
+    <h2 id="authTitle">เข้าสู่ระบบ CINEAI</h2>
+    <p class="sub" id="authSub">เข้าสู่ระบบเพื่อไปต่อในโลกของ CINEAI</p>
+    <form id="authForm">
+      <div class="field"><label for="email">อีเมล</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+      <div class="field"><label for="password">รหัสผ่าน</label><input id="password" name="password" type="password" autocomplete="current-password" minlength="6" placeholder="อย่างน้อย 6 ตัวอักษร" required></div>
+      <button class="btn primary wide" id="authSubmit" type="submit">เข้าสู่ระบบ</button>
     </form>
+    <div class="status" id="authStatus" role="status" aria-live="polite"></div>
+    <div class="switchline"><span id="switchText">ยังไม่มีบัญชี?</span> <button class="textbtn" id="switchMode" type="button">สมัครสมาชิก</button></div>
   </div>
 </div>
-<div class="toast" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const movies=[
-{id:1,title:"Interstellar",year:2014,genre:"ไซไฟ",rating:8.7,desc:"การเดินทางข้ามห้วงอวกาศที่ตั้งคำถามเกี่ยวกับเวลา ความรัก และอนาคตของมนุษยชาติ",emoji:"🌌"},
-{id:2,title:"Dune: Part Two",year:2024,genre:"ไซไฟ",rating:8.5,desc:"มหากาพย์แห่งทะเลทราย การต่อสู้เพื่ออำนาจ และโชคชะตาที่เปลี่ยนจักรวาล",emoji:"🏜️"},
-{id:3,title:"Blade Runner 2049",year:2017,genre:"ลึกลับ",rating:8.0,desc:"นักสืบในโลกอนาคตค้นพบความลับที่อาจเปลี่ยนความเข้าใจของมนุษยชาติ",emoji:"🌃"},
-{id:4,title:"The Batman",year:2022,genre:"แอ็กชัน",rating:7.8,desc:"การสืบสวนในเมืองที่เต็มไปด้วยปริศนา อาชญากรรม และความลับ",emoji:"🦇"},
-{id:5,title:"Soul",year:2020,genre:"แฟนตาซี",rating:8.0,desc:"การเดินทางเพื่อค้นหาความหมายของชีวิตและความสุขจากช่วงเวลาเล็ก ๆ",emoji:"✨"},
-{id:6,title:"Arrival",year:2016,genre:"ลึกลับ",rating:7.9,desc:"นักภาษาศาสตร์พยายามสื่อสารกับผู้มาเยือนจากนอกโลก และค้นพบมุมมองใหม่ต่อเวลา",emoji:"👽"},
-{id:7,title:"Everything Everywhere All at Once",year:2022,genre:"แฟนตาซี",rating:7.8,desc:"การผจญภัยข้ามจักรวาลที่ผสมผสานความแปลกใหม่ ครอบครัว และการค้นหาตัวเอง",emoji:"🌀"},
-{id:8,title:"The Dark Knight",year:2008,genre:"แอ็กชัน",rating:9.0,desc:"การเผชิญหน้าระหว่างวีรบุรุษและวายร้ายที่ทดสอบความเชื่อและศีลธรรม",emoji:"⚔️"}
-];
-let activeMood="ทั้งหมด",activeMovie=null,chosenRating=0;
-const read=(key,def)=>{try{return JSON.parse(localStorage.getItem(key))??def}catch(e){return def}};
-const write=(key,val)=>{try{localStorage.setItem(key,JSON.stringify(val))}catch(e){}};
-const getFavorites=()=>read("cineai_favorites",[]);
-const getRatings=()=>read("cineai_ratings",{});
-const getComments=()=>read("cineai_comments",{});
-const getHistory=()=>read("cineai_history",[]);
-function toast(message){const el=document.querySelector("#toast");el.textContent=message;el.classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove("show"),2200)}
-function escapeHTML(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function getMovie(id){return movies.find(m=>m.id===Number(id))}
-function ratingAverage(id){const r=getRatings()[id]||[];return r.length?(r.reduce((a,b)=>a+b,0)/r.length).toFixed(1):null}
-function movieCard(m){const saved=getFavorites().includes(m.id);const avg=ratingAverage(m.id);return `<article class="card"><div class="poster" role="img" aria-label="${escapeHTML(m.title)}">${m.emoji}<div>${escapeHTML(m.title)}</div><small>CINEAI DISCOVERY</small></div><div class="card-info"><h3>${escapeHTML(m.title)}</h3><div class="meta">${m.year} · ${escapeHTML(m.genre)} · ★ ${avg||m.rating}</div><div class="card-actions"><button class="small-btn" onclick="openMovie(${m.id})">ดูรายละเอียด</button><button class="small-btn secondary" onclick="toggleFavorite(${m.id})">${saved?"♥":"♡"}</button></div></div></article>`}
-function renderMovies(){const q=document.querySelector("#search").value.trim().toLowerCase();const list=movies.filter(m=>(activeMood==="ทั้งหมด"||m.genre===activeMood)&&(m.title+" "+m.genre+" "+m.desc).toLowerCase().includes(q));document.querySelector("#movieGrid").innerHTML=list.length?list.map(movieCard).join(""):'<div class="panel">ไม่พบภาพยนตร์ที่ตรงกับคำค้นหา</div>';renderFavorites();updateStats()}
-function renderFavorites(){const list=movies.filter(m=>getFavorites().includes(m.id));document.querySelector("#favoriteGrid").innerHTML=list.length?list.map(movieCard).join(""):'<div class="panel" style="grid-column:1/-1">ยังไม่มีหนังในรายการโปรด กด ♡ เพื่อบันทึกหนังที่คุณสนใจ</div>';document.querySelector("#savedCount").textContent=list.length}
-function toggleFavorite(id){let list=getFavorites();list=list.includes(id)?list.filter(x=>x!==id):[...list,id];write("cineai_favorites",list);renderMovies();toast(list.includes(id)?"เพิ่มในรายการโปรดแล้ว":"นำออกจากรายการโปรดแล้ว")}
-function updateStats(){document.querySelector("#exploredCount").textContent=getHistory().length;document.querySelector("#ratedCount").textContent=Object.keys(getRatings()).filter(k=>(getRatings()[k]||[]).length).length;document.querySelector("#savedCount").textContent=getFavorites().length}
-function openMovie(id){activeMovie=getMovie(id);if(!activeMovie)return;let history=getHistory().filter(x=>x!==id);history.unshift(id);write("cineai_history",history.slice(0,20));chosenRating=0;renderDetail();document.querySelector("#movieModal").classList.add("open");updateStats()}
-function closeModal(id){document.getElementById(id).classList.remove("open")}
-function renderDetail(){const m=activeMovie;if(!m)return;const comments=getComments()[m.id]||[];const avg=ratingAverage(m.id);document.querySelector("#detailTitle").textContent=m.title;document.querySelector("#detailBody").innerHTML=`<div class="poster" style="aspect-ratio:16/7;margin:15px 0">${m.emoji} ${escapeHTML(m.title)}</div><p>${escapeHTML(m.desc)}</p><p>ปี ${m.year} · ${escapeHTML(m.genre)} · คะแนนอ้างอิง ${m.rating}/10</p><div class="panel"><strong>ให้คะแนนภาพยนตร์</strong><div class="stars">${Array.from({length:10},(_,i)=>`<button class="${i<chosenRating?'selected':''}" data-star="${i+1}" aria-label="ให้ ${i+1} คะแนน">★</button>`).join("")}</div><p class="notice" id="ratingMessage">${avg?`คะแนนเฉลี่ยของคุณและผู้ใช้ในอุปกรณ์นี้: ${avg}/10`:"เลือกคะแนน 1–10 ดาว"}</p><button id="submitRating">บันทึกคะแนน</button></div><section><h2 style="margin-bottom:12px">ความคิดเห็น</h2><div id="comments">${comments.length?comments.map(c=>`<div class="comment"><strong>${escapeHTML(c.name)}</strong><p>${escapeHTML(c.text)}</p></div>`).join(""):'<p class="notice">ยังไม่มีความคิดเห็น เป็นคนแรกที่แบ่งปันได้เลย</p>'}</div><form id="commentForm"><input id="commentName" maxlength="35" placeholder="ชื่อที่แสดง" required style="margin:8px 0"><textarea id="commentText" maxlength="500" placeholder="เขียนความคิดเห็นของคุณ..." required style="margin:0 0 10px"></textarea><button type="submit">โพสต์ความคิดเห็น</button></form><p class="notice">ความคิดเห็นและคะแนนจะถูกเก็บไว้เฉพาะในเบราว์เซอร์บนอุปกรณ์นี้</p></section>`;
-document.querySelectorAll("[data-star]").forEach(b=>b.addEventListener("click",()=>{chosenRating=Number(b.dataset.star);document.querySelectorAll("[data-star]").forEach(x=>x.classList.toggle("selected",Number(x.dataset.star)<=chosenRating));document.querySelector("#ratingMessage").textContent="คะแนนของคุณ: "+chosenRating+"/10"}));
-document.querySelector("#submitRating").addEventListener("click",()=>{if(!chosenRating){toast("กรุณาเลือกคะแนนก่อน");return}const all=getRatings();const mine=all[m.id]||[];mine.push(chosenRating);all[m.id]=mine;write("cineai_ratings",all);toast("บันทึกคะแนนแล้ว");renderDetail();renderMovies()});
-document.querySelector("#commentForm").addEventListener("submit",e=>{e.preventDefault();const name=document.querySelector("#commentName").value.trim();const text=document.querySelector("#commentText").value.trim();if(!name||!text)return;const all=getComments();const list=all[m.id]||[];list.push({name,text});all[m.id]=list;write("cineai_comments",all);toast("บันทึกความคิดเห็นแล้ว");renderDetail()});
-}
-document.querySelectorAll("[data-mood]").forEach(b=>b.addEventListener("click",()=>{activeMood=b.dataset.mood;document.querySelectorAll("[data-mood]").forEach(x=>x.classList.toggle("active",x===b));document.querySelector("#recommendation").innerHTML=`<strong>✦ CINEAI แนะนำ: ${escapeHTML(activeMood)}</strong><p>${activeMood==="ทั้งหมด"?"สำรวจภาพยนตร์ทุกแนวเพื่อค้นพบเรื่องโปรดเรื่องใหม่":`ลองสำรวจภาพยนตร์แนว${escapeHTML(activeMood)} ที่เข้ากับอารมณ์ของคุณ`}</p>`;renderMovies();document.querySelector("#discover").scrollIntoView({behavior:"smooth"})}));
-document.querySelector("#search").addEventListener("input",renderMovies);
-document.querySelector("#loginBtn").addEventListener("click",()=>document.querySelector("#loginModal").classList.add("open"));
-document.querySelector("#loginForm").addEventListener("submit",e=>{e.preventDefault();toast("แบบฟอร์มตัวอย่าง: ต้องเชื่อมระบบสมาชิกจริงก่อนใช้งาน");closeModal("loginModal")});
-function showPremium(){toast("ระบบสมาชิกและการชำระเงินยังไม่ได้เชื่อมต่อ")}
-document.querySelectorAll(".modal").forEach(el=>el.addEventListener("click",e=>{if(e.target===el)el.classList.remove("open")}));
-renderMovies();
+(() => {
+  "use strict";
+
+  // นำค่าจริงจาก Supabase Dashboard > Project Settings > API มาใส่
+  // ห้ามใช้ service_role key ในเว็บไซต์
+  const SUPABASE_URL = "https://dyiipxozzbrpducousnp.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_CmwC93CrODW7eU-OTed5KA_zdb6KITE";
+
+  const $ = (selector) => document.querySelector(selector);
+  const modal = $("#authModal");
+  const form = $("#authForm");
+  const status = $("#authStatus");
+  const submit = $("#authSubmit");
+  const navRight = $("#navRight");
+  let mode = "login";
+  let supabase = null;
+
+  $("#year").textContent = new Date().getFullYear();
+
+  function configured() {
+    return SUPABASE_URL.startsWith("https://") &&
+      !SUPABASE_URL.includes("PASTE_YOUR") &&
+      SUPABASE_KEY.length > 20 &&
+      !SUPABASE_KEY.includes("PASTE_YOUR");
+  }
+
+  function setStatus(message, type = "") {
+    status.textContent = message;
+    status.className = "status" + (type ? " " + type : "");
+  }
+
+  function setMode(nextMode) {
+    mode = nextMode;
+    const isSignup = mode === "signup";
+    $("#authTitle").textContent = isSignup ? "สร้างบัญชี CINEAI" : "เข้าสู่ระบบ CINEAI";
+    $("#authSub").textContent = isSignup
+      ? "สมัครด้วยอีเมลและรหัสผ่านเพื่อเริ่มต้นใช้งาน"
+      : "เข้าสู่ระบบเพื่อไปต่อในโลกของ CINEAI";
+    $("#authSubmit").textContent = isSignup ? "สมัครสมาชิก" : "เข้าสู่ระบบ";
+    $("#switchText").textContent = isSignup ? "มีบัญชีอยู่แล้ว?" : "ยังไม่มีบัญชี?";
+    $("#switchMode").textContent = isSignup ? "เข้าสู่ระบบ" : "สมัครสมาชิก";
+    $("#password").autocomplete = isSignup ? "new-password" : "current-password";
+    setStatus("");
+  }
+
+  function openModal(nextMode) {
+    setMode(nextMode || "login");
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+    setTimeout(() => $("#email").focus(), 80);
+
+    if (!configured()) {
+      setStatus("ยังไม่ได้ใส่ URL และ Key ของ Supabase ในโค้ด", "error");
+    } else if (!window.supabase) {
+      setStatus("โหลดไลบรารี Supabase ไม่สำเร็จ กรุณาตรวจอินเทอร์เน็ต", "error");
+    }
+  }
+
+  function closeModal() {
+    modal.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll("[data-open-auth]").forEach(button => {
+    button.addEventListener("click", () => openModal(button.dataset.openAuth));
+  });
+
+  $("#closeModal").addEventListener("click", closeModal);
+  modal.addEventListener("click", event => {
+    if (event.target === modal) closeModal();
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeModal();
+  });
+  $("#switchMode").addEventListener("click", () => {
+    setMode(mode === "login" ? "signup" : "login");
+  });
+
+  document.querySelector("[data-premium]").addEventListener("click", () => {
+    $("#mainStatus").textContent =
+      "ระบบพรีเมียมยังไม่เปิดรับชำระเงินจริง ปุ่มนี้ยังไม่ตัดเงิน";
+    if (supabase) openModal("signup");
+    else openModal("login");
+  });
+
+  function renderUser(user) {
+    navRight.replaceChildren();
+
+    if (user) {
+      const email = document.createElement("span");
+      email.className = "account";
+      email.textContent = user.email || "สมาชิก";
+      email.title = user.email || "";
+
+      const logout = document.createElement("button");
+      logout.className = "btn small";
+      logout.type = "button";
+      logout.textContent = "ออกจากระบบ";
+      logout.addEventListener("click", async () => {
+        if (!supabase) return;
+        const { error } = await supabase.auth.signOut();
+        if (error) alert("ออกจากระบบไม่สำเร็จ: " + error.message);
+      });
+
+      navRight.append(email, logout);
+    } else {
+      const login = document.createElement("button");
+      login.className = "btn small";
+      login.type = "button";
+      login.textContent = "เข้าสู่ระบบ";
+      login.addEventListener("click", () => openModal("login"));
+
+      const signup = document.createElement("button");
+      signup.className = "btn primary small";
+      signup.type = "button";
+      signup.textContent = "สมัครสมาชิก";
+      signup.addEventListener("click", () => openModal("signup"));
+
+      navRight.append(login, signup);
+    }
+  }
+
+  form.addEventListener("submit", async event => {
+    event.preventDefault();
+    setStatus("");
+
+    if (!configured()) {
+      setStatus("กรุณาใส่ Supabase Project URL และ Publishable/anon key จริงก่อน", "error");
+      return;
+    }
+
+    if (!supabase) {
+      setStatus("ยังเชื่อมต่อ Supabase ไม่ได้ กรุณาตรวจอินเทอร์เน็ตแล้วลองใหม่", "error");
+      return;
+    }
+
+    const email = $("#email").value.trim();
+    const password = $("#password").value;
+    submit.disabled = true;
+    submit.textContent = mode === "signup" ? "กำลังสมัคร..." : "กำลังเข้าสู่ระบบ...";
+
+    try {
+      if (mode === "signup") {
+        const { data, error } = await supabase.auth.signUp({ email, password });
+        if (error) throw error;
+
+        if (!data.session) {
+          setStatus(
+            "ส่งคำขอสมัครแล้ว หากระบบเปิดยืนยันอีเมลไว้ กรุณาเปิดอีเมลเพื่อยืนยันบัญชี",
+            "success"
+          );
+          return;
+        }
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+      }
+
+      const { data: { user } } = await supabase.auth.getUser();
+      renderUser(user);
+      setStatus("สำเร็จ", "success");
+      setTimeout(closeModal, 700);
+    } catch (error) {
+      setStatus(error.message || "เกิดข้อผิดพลาด กรุณาลองใหม่", "error");
+    } finally {
+      submit.disabled = false;
+      submit.textContent = mode === "signup" ? "สมัครสมาชิก" : "เข้าสู่ระบบ";
+    }
+  });
+
+  async function init() {
+    if (!configured()) {
+      console.warn("CINEAI: กรุณาใส่ Supabase URL และ Key จริงก่อนใช้งาน");
+      return;
+    }
+
+    if (!window.supabase || typeof window.supabase.createClient !== "function") {
+      console.error("CINEAI: โหลด Supabase JS ไม่สำเร็จ");
+      return;
+    }
+
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const { data: { session } } = await supabase.auth.getSession();
+    renderUser(session ? session.user : null);
+
+    supabase.auth.onAuthStateChange((_event, sessionNow) => {
+      renderUser(sessionNow ? sessionNow.user : null);
+    });
+  }
+
+  init();
+})();
 </script>
 </body>
 </html>
