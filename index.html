@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -8,195 +7,58 @@
 <title>CINEAI — Discover Your Next Reality</title>
 <style>
 :root{--bg:#050910;--panel:rgba(8,20,34,.82);--line:rgba(100,218,255,.25);--cyan:#69eaff;--blue:#4d8dff;--text:#effaff;--muted:#8ea7ba;--purple:#a78bfa}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(ellipse at 60% 0%,#102a42 0%,#07111d 35%,#03060b 75%);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-.app{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:100vh;gap:18px;padding:18px;max-width:1600px;margin:auto}
-.glass{background:linear-gradient(145deg,rgba(14,34,52,.88),rgba(5,13,24,.9));border:1px solid var(--line);box-shadow:0 0 28px rgba(30,174,255,.07);backdrop-filter:blur(14px);border-radius:20px}
-.sidebar{padding:22px 14px;position:sticky;top:18px;height:calc(100vh - 36px);display:flex;flex-direction:column}
-.brand{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:850;letter-spacing:-.8px;margin:0 8px 32px}
-.brandmark{width:34px;height:34px;border:2px solid var(--cyan);border-radius:11px;display:grid;place-items:center;color:var(--cyan);font-weight:900}
-.nav{display:grid;gap:8px}
-.nav button{border:1px solid transparent;color:#a9c2d4;background:transparent;text-align:left;padding:13px 12px;border-radius:12px;display:flex;gap:12px;align-items:center}
-.nav button.active,.nav button:hover{color:#fff;background:#1a4960aa;border-color:#5ce5ff55}
-.nav .ico{width:20px;text-align:center;color:var(--cyan)}
-.side-bottom{margin-top:auto;padding:14px 12px;color:var(--muted);font-size:12px;line-height:1.6}
-.main{min-width:0}
-.topbar{display:flex;align-items:center;gap:18px;padding:16px 20px;margin-bottom:18px;min-height:76px}
-.topbrand{display:none}
-.search{display:flex;align-items:center;gap:10px;flex:1;min-width:0;border:1px solid #4e9bb777;background:#030b14a8;padding:11px 14px;border-radius:12px}
-.search input{background:none;border:0;outline:0;color:white;width:100%;min-width:0}
-.search input::placeholder{color:#7896aa}
-.search button{background:none;border:0;color:var(--cyan);font-size:18px}
-.top-actions{display:flex;align-items:center;gap:10px}
-.round{width:40px;height:40px;border-radius:50%;border:1px solid #66ddff88;background:#0b1b2c;color:var(--cyan);font-size:18px}
-.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:1px solid #7deaff88;background:#102f43}
-.hero{padding:26px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(190px,.7fr);gap:22px;overflow:hidden;position:relative;margin-bottom:18px}
-.eyebrow{color:var(--cyan);font-size:11px;letter-spacing:2.4px;text-transform:uppercase;font-weight:800}
-.hero h1{font-size:clamp(28px,4vw,52px);line-height:1.03;letter-spacing:-1.8px;margin:12px 0}
-.hero h1 span{color:var(--cyan)}
-.hero p{max-width:590px;color:#a5bdcf;line-height:1.65;margin:0 0 20px}
-.btn{border:1px solid #66e5ff88;color:#02121b;background:linear-gradient(110deg,#80f1ff,#50baff);font-weight:800;padding:11px 16px;border-radius:10px}
-.btn.secondary{background:#0a1b2b;color:#d9f8ff;box-shadow:none}
-.hero-buttons{display:flex;gap:10px;flex-wrap:wrap}
-.hero-art{min-height:220px;position:relative;display:grid;place-items:center;isolation:isolate}
-.orb{position:absolute;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#92fbff,#2868a9 25%,#10112e 55%,transparent 72%);filter:drop-shadow(0 0 35px #2ccfff55);opacity:.9}
-.orbit{position:absolute;width:250px;height:90px;border:1px solid #66eaff8a;border-radius:50%;transform:rotate(-35deg)}
-.orbit.two{transform:rotate(48deg);width:230px;height:110px;border-color:#a78bfa88}
-.ai-chip{position:relative;z-index:2;background:#061522d9;border:1px solid #73eaff99;border-radius:14px;padding:15px 18px;box-shadow:0 0 25px #2cdcff22;text-align:center}
-.ai-chip strong{display:block;font-size:22px;letter-spacing:2px}
-.ai-chip small{color:var(--cyan);font-size:10px;letter-spacing:2px}
-.section{margin:22px 0}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:13px}
-.section h2{font-size:19px;margin:0;letter-spacing:-.3px}
-.section-head p{margin:5px 0 0;color:var(--muted);font-size:12px}
-.link-btn{background:none;border:0;color:var(--cyan);font-size:12px}
-.feature-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(210px,.75fr);gap:16px}
-.featured{padding:16px;display:grid;grid-template-columns:130px minmax(0,1fr);gap:18px;align-items:center}
-.poster{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:12px;background:#10273b;border:1px solid #62dfff55}
-.featured h3{font-size:22px;margin:8px 0}
-.meta{font-size:12px;color:var(--muted);display:flex;gap:9px;flex-wrap:wrap}
-.score{color:#a5ffcb;font-weight:800}
-.featured p{color:#a7bdcc;line-height:1.5;font-size:13px}
-.mini-label{color:var(--cyan);font-size:10px;letter-spacing:1.7px;font-weight:800}
-.feature-actions{display:flex;gap:8px;flex-wrap:wrap}
-.mood{padding:18px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-.mood-ring{width:138px;height:138px;border-radius:50%;border:8px solid transparent;background:linear-gradient(#091624,#091624) padding-box,conic-gradient(#55f1bd,#c2ff65,#ffb36b,#e27bff,#4ebdff,#55f1bd) border-box;display:grid;place-items:center;margin:14px}
-.mood-ring span{font-size:28px}
-.mood p{font-size:12px;color:var(--muted);margin:0}
-.movie-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.movie-card{overflow:hidden;transition:transform .2s,border-color .2s;cursor:pointer}
-.movie-card:hover{transform:translateY(-4px);border-color:#68eaff88}
-.movie-card .poster{display:block;border:0;border-radius:0;aspect-ratio:3/4}
-.movie-info{padding:12px}
-.movie-info h3{font-size:14px;margin:0 0 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.movie-info .meta{font-size:11px}
-.movie-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:11px}
-.tiny-score{font-size:11px;color:#b7ffd6}
-.tiny-btn{background:#0b2637;color:var(--cyan);border:1px solid #55dfff44;border-radius:8px;padding:6px 9px;font-size:11px}
-.insights-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.insight{padding:18px}
-.insight p{color:var(--muted);font-size:12px;line-height:1.6}
-.bars{display:grid;gap:11px;margin-top:18px}
-.bar-row{display:grid;grid-template-columns:80px 1fr 30px;align-items:center;gap:8px;font-size:11px;color:#b9cfde}
-.bar{height:7px;background:#11283b;border-radius:20px;overflow:hidden}
-.bar i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#43cfff,#a78bfa)}
-.empty{padding:32px;text-align:center;color:var(--muted);grid-column:1/-1}
-.footer{text-align:center;color:#60798c;font-size:11px;padding:24px}
-.modal-backdrop{position:fixed;inset:0;background:#02060bd9;display:none;place-items:center;padding:16px;z-index:20;overflow:auto}
-.modal-backdrop.open{display:grid}
-.modal{width:min(700px,100%);max-height:92vh;overflow:auto;padding:22px;position:relative}
-.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.modal-head h2{margin:0}
-.close{background:none;border:1px solid #34556b;color:#dffaff;border-radius:8px;padding:6px 10px}
-.detail-layout{display:grid;grid-template-columns:150px 1fr;gap:18px;margin:18px 0}
-.detail-layout p{color:#a7bdcc;line-height:1.6;font-size:13px}
-.rating-block{padding:15px;background:#071522;border:1px solid #25516a;border-radius:12px}
-.stars{display:flex;gap:4px;flex-wrap:wrap;margin:9px 0}
-.stars button{font-size:25px;border:0;background:none;color:#536a7b;padding:0 2px}
-.stars button.selected{color:#ffd66b;text-shadow:0 0 12px #ffcf4b66}
-.rating-note{color:var(--muted);font-size:12px}
-.comment-list{display:grid;gap:9px;margin:12px 0}
-.comment{padding:12px;border:1px solid #1b3a50;border-radius:10px;background:#07121e}
-.comment strong{font-size:12px}
-.comment time{font-size:10px;color:var(--muted);margin-left:8px}
-.comment p{font-size:13px;line-height:1.5;margin:7px 0 0;white-space:pre-wrap}
-.comment-form{display:grid;gap:9px}
-.field{width:100%;background:#030b13;border:1px solid #28516a;border-radius:9px;color:#fff;padding:11px;outline:none}
-.field:focus{border-color:var(--cyan)}
-textarea.field{min-height:85px;resize:vertical}
-.notice{font-size:11px;color:#829db0;line-height:1.5}
-.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#d9fbff;color:#04111b;padding:10px 15px;border-radius:10px;font-size:13px;font-weight:700;display:none;z-index:40}
-.toast.show{display:block}
-.mobile-menu{display:none}
-@media(max-width:980px){
-.app{grid-template-columns:180px minmax(0,1fr);padding:12px;gap:12px}
-.hero{padding:20px}
-.movie-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-.feature-grid{grid-template-columns:1fr}
-.mood{display:none}
-}
-@media(max-width:700px){
-.app{display:block;padding:10px 10px 82px}
-.sidebar{display:none}
-.topbar{padding:12px;gap:10px;min-height:60px;margin-bottom:12px}
-.topbrand{display:flex;align-items:center;gap:7px;font-weight:850;font-size:17px;white-space:nowrap}
-.topbrand .brandmark{width:27px;height:27px;font-size:12px}
-.search{padding:9px 10px}
-.top-actions .avatar{display:none}
-.hero{grid-template-columns:1fr;padding:20px;gap:0}
-.hero-art{min-height:120px}
-.orb{width:125px;height:125px}
-.orbit{width:160px;height:60px}
-.hero h1{font-size:34px}
-.hero p{font-size:13px}
-.featured{grid-template-columns:100px 1fr;gap:12px;padding:12px}
-.featured h3{font-size:18px}
-.featured p{font-size:12px}
-.movie-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.movie-info{padding:10px}
-.movie-info h3{font-size:13px}
-.insights-grid{grid-template-columns:1fr}
-.section{margin:18px 0}
-.section h2{font-size:17px}
-.detail-layout{grid-template-columns:100px 1fr;gap:12px}
-.modal{padding:16px}
-.mobile-menu{display:flex;position:fixed;z-index:10;bottom:0;left:0;right:0;padding:8px 5px calc(8px + env(safe-area-inset-bottom));background:#050b13f5;border-top:1px solid #24516a;justify-content:space-around;backdrop-filter:blur(12px)}
-.mobile-menu button{background:none;border:0;color:#8ba6b9;font-size:10px;display:grid;gap:3px;justify-items:center}
-.mobile-menu button span{font-size:19px}
-.mobile-menu button.active{color:var(--cyan)}
-}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 60% 0%,#102a42 0%,#07111d 35%,#03060b 75%);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:100vh;gap:18px;padding:18px;max-width:1600px;margin:auto}.glass{background:linear-gradient(145deg,rgba(14,34,52,.88),rgba(5,13,24,.9));border:1px solid var(--line);box-shadow:0 0 28px rgba(30,174,255,.07),inset 0 0 20px rgba(82,207,255,.025);backdrop-filter:blur(14px);border-radius:20px}.sidebar{padding:22px 14px;position:sticky;top:18px;height:calc(100vh - 36px);display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:850;letter-spacing:-.8px;margin:0 8px 32px}.brandmark{width:34px;height:34px;border:2px solid var(--cyan);border-radius:11px;display:grid;place-items:center;color:var(--cyan);font-weight:900;box-shadow:0 0 18px #42dfff55}.nav{display:grid;gap:8px}.nav button{border:1px solid transparent;color:#a9c2d4;background:transparent;text-align:left;padding:13px 12px;border-radius:12px;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{color:#fff;background:linear-gradient(90deg,#1a4960aa,#10283b66);border-color:#5ce5ff55;box-shadow:inset 3px 0 var(--cyan)}.nav .ico{width:20px;text-align:center;color:var(--cyan)}.side-bottom{margin-top:auto;padding:14px 12px;color:var(--muted);font-size:12px;line-height:1.6}.main{min-width:0}.topbar{display:flex;align-items:center;gap:18px;padding:16px 20px;margin-bottom:18px;min-height:76px}.topbrand{display:none}.search{display:flex;align-items:center;gap:10px;flex:1;min-width:0;border:1px solid #4e9bb777;background:#030b14a8;padding:11px 14px;border-radius:12px;box-shadow:inset 0 0 15px #35cfff0a}.search input{background:none;border:0;outline:0;color:white;width:100%;min-width:0}.search input::placeholder{color:#7896aa}.search button{background:none;border:0;color:var(--cyan);font-size:18px}.top-actions{display:flex;align-items:center;gap:10px}.round{width:40px;height:40px;border-radius:50%;border:1px solid #66ddff88;background:#0b1b2c;color:var(--cyan);font-size:18px}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:1px solid #7deaff88;background:#102f43}.hero{padding:26px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(190px,.7fr);gap:22px;overflow:hidden;position:relative;margin-bottom:18px}.eyebrow{color:var(--cyan);font-size:11px;letter-spacing:2.4px;text-transform:uppercase;font-weight:800}.hero h1{font-size:clamp(28px,4vw,52px);line-height:1.03;letter-spacing:-1.8px;margin:12px 0}.hero h1 span{color:var(--cyan);text-shadow:0 0 20px #48dfff55}.hero p{max-width:590px;color:#a5bdcf;line-height:1.65;margin:0 0 20px}.btn{border:1px solid #66e5ff88;color:#02121b;background:linear-gradient(110deg,#80f1ff,#50baff);font-weight:800;padding:11px 16px;border-radius:10px;box-shadow:0 0 20px #39d6ff20}.btn.secondary{background:#0a1b2b;color:#d9f8ff;box-shadow:none}.hero-buttons{display:flex;gap:10px;flex-wrap:wrap}.hero-art{min-height:220px;position:relative;display:grid;place-items:center;isolation:isolate}.orb{position:absolute;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#92fbff,#2868a9 25%,#10112e 55%,transparent 72%);filter:drop-shadow(0 0 35px #2ccfff55);opacity:.9}.orbit{position:absolute;width:250px;height:90px;border:1px solid #66eaff8a;border-radius:50%;transform:rotate(-35deg);box-shadow:0 0 20px #31dfff22}.orbit.two{transform:rotate(48deg);width:230px;height:110px;border-color:#a78bfa88}.hero-art .ai-chip{position:relative;z-index:2;background:#061522d9;border:1px solid #73eaff99;border-radius:14px;padding:15px 18px;box-shadow:0 0 25px #2cdcff22;text-align:center}.ai-chip strong{display:block;font-size:22px;letter-spacing:2px}.ai-chip small{color:var(--cyan);font-size:10px;letter-spacing:2px}.section{margin:22px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:13px}.section h2{font-size:19px;margin:0;letter-spacing:-.3px}.section-head p{margin:5px 0 0;color:var(--muted);font-size:12px}.link-btn{background:none;border:0;color:var(--cyan);font-size:12px}.feature-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(210px,.75fr);gap:16px}.featured{padding:16px;display:grid;grid-template-columns:130px minmax(0,1fr);gap:18px;align-items:center}.poster{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:12px;background:#10273b;border:1px solid #62dfff55}.featured h3{font-size:22px;margin:8px 0}.meta{font-size:12px;color:var(--muted);display:flex;gap:9px;flex-wrap:wrap}.score{color:#a5ffcb;font-weight:800}.featured p{color:#a7bdcc;line-height:1.5;font-size:13px}.mini-label{color:var(--cyan);font-size:10px;letter-spacing:1.7px;font-weight:800}.feature-actions{display:flex;gap:8px;flex-wrap:wrap}.mood{padding:18px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}.mood-ring{width:138px;height:138px;border-radius:50%;border:8px solid transparent;background:linear-gradient(#091624,#091624) padding-box,conic-gradient(#55f1bd,#c2ff65,#ffb36b,#e27bff,#4ebdff,#55f1bd) border-box;box-shadow:0 0 25px #4edcff1e;display:grid;place-items:center;margin:14px}.mood-ring span{font-size:28px}.mood p{font-size:12px;color:var(--muted);margin:0}.movie-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.movie-card{overflow:hidden;transition:transform .2s,border-color .2s;cursor:pointer}.movie-card:hover{transform:translateY(-4px);border-color:#68eaff88}.movie-card .poster{display:block;border:0;border-radius:0;aspect-ratio:3/4}.movie-info{padding:12px}.movie-info h3{font-size:14px;margin:0 0 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.movie-info .meta{font-size:11px}.movie-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:11px}.tiny-score{font-size:11px;color:#b7ffd6}.tiny-btn{background:#0b2637;color:var(--cyan);border:1px solid #55dfff44;border-radius:8px;padding:6px 9px;font-size:11px}.insights-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.insight{padding:18px}.insight p{color:var(--muted);font-size:12px;line-height:1.6}.bars{display:grid;gap:11px;margin-top:18px}.bar-row{display:grid;grid-template-columns:80px 1fr 30px;align-items:center;gap:8px;font-size:11px;color:#b9cfde}.bar{height:7px;background:#11283b;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#43cfff,#a78bfa)}.empty{padding:32px;text-align:center;color:var(--muted);grid-column:1/-1}.footer{text-align:center;color:#60798c;font-size:11px;padding:24px}.modal-backdrop{position:fixed;inset:0;background:#02060bd9;display:none;place-items:center;padding:16px;z-index:20;overflow:auto}.modal-backdrop.open{display:grid}.modal{width:min(700px,100%);max-height:92vh;overflow:auto;padding:22px;position:relative}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.modal-head h2{margin:0}.close{background:none;border:1px solid #34556b;color:#dffaff;border-radius:8px;padding:6px 10px}.detail-layout{display:grid;grid-template-columns:150px 1fr;gap:18px;margin:18px 0}.detail-layout p{color:#a7bdcc;line-height:1.6;font-size:13px}.rating-block{padding:15px;background:#071522;border:1px solid #25516a;border-radius:12px}.stars{display:flex;gap:4px;flex-wrap:wrap;margin:9px 0}.stars button{font-size:25px;border:0;background:none;color:#536a7b;padding:0 2px}.stars button.selected{color:#ffd66b;text-shadow:0 0 12px #ffcf4b66}.rating-note{color:var(--muted);font-size:12px}.comment-list{display:grid;gap:9px;margin:12px 0}.comment{padding:12px;border:1px solid #1b3a50;border-radius:10px;background:#07121e}.comment strong{font-size:12px}.comment time{font-size:10px;color:var(--muted);margin-left:8px}.comment p{font-size:13px;line-height:1.5;margin:7px 0 0;white-space:pre-wrap}.comment-form{display:grid;gap:9px}.field{width:100%;background:#030b13;border:1px solid #28516a;border-radius:9px;color:#fff;padding:11px;outline:none}.field:focus{border-color:var(--cyan)}textarea.field{min-height:85px;resize:vertical}.notice{font-size:11px;color:#829db0;line-height:1.5}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#d9fbff;color:#04111b;padding:10px 15px;border-radius:10px;font-size:13px;font-weight:700;display:none;z-index:40}.toast.show{display:block}.mobile-menu{display:none}
+@media(max-width:980px){.app{grid-template-columns:180px minmax(0,1fr);padding:12px;gap:12px}.hero{padding:20px}.movie-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.feature-grid{grid-template-columns:1fr}.mood{display:none}}
+@media(max-width:700px){.app{display:block;padding:10px 10px 82px}.sidebar{display:none}.topbar{padding:12px;gap:10px;min-height:60px;margin-bottom:12px}.topbrand{display:flex;align-items:center;gap:7px;font-weight:850;font-size:17px;white-space:nowrap}.topbrand .brandmark{width:27px;height:27px;font-size:12px}.search{padding:9px 10px}.top-actions .avatar{display:none}.hero{grid-template-columns:1fr;padding:20px;gap:0}.hero-art{min-height:120px}.orb{width:125px;height:125px}.orbit{width:160px;height:60px}.hero h1{font-size:34px}.hero p{font-size:13px}.featured{grid-template-columns:100px 1fr;gap:12px;padding:12px}.featured h3{font-size:18px}.featured p{font-size:12px}.movie-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.movie-info{padding:10px}.movie-info h3{font-size:13px}.insights-grid{grid-template-columns:1fr}.section{margin:18px 0}.section h2{font-size:17px}.detail-layout{grid-template-columns:100px 1fr;gap:12px}.modal{padding:16px}.mobile-menu{display:flex;position:fixed;z-index:10;bottom:0;left:0;right:0;padding:8px 5px calc(8px + env(safe-area-inset-bottom));background:#050b13f5;border-top:1px solid #24516a;justify-content:space-around;backdrop-filter:blur(12px)}.mobile-menu button{background:none;border:0;color:#8ba6b9;font-size:10px;display:grid;gap:3px;justify-items:center}.mobile-menu button span{font-size:19px}.mobile-menu button.active{color:var(--cyan)}}
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="sidebar glass">
-<div class="brand"><span class="brandmark">C</span><span>CINEAI</span></div>
-<nav class="nav" id="sideNav">
-<button class="active" data-section="home"><span class="ico">⌂</span> Home</button>
-<button data-section="discover"><span class="ico">⌕</span> Discover</button>
-<button data-section="watchlist"><span class="ico">♡</span> Watchlist</button>
-<button data-section="trending"><span class="ico">↗</span> Trending</button>
-<button data-section="insights"><span class="ico">◉</span> AI Insights</button>
-</nav>
-<div class="side-bottom">YOUR CINEMA, REIMAGINED<br><span style="color:#5cdef5">●</span> AI-powered discovery<br><br>Prototype 01 · CINEAI</div>
+  <div class="brand"><span class="brandmark">C</span><span>CINEAI</span></div>
+  <nav class="nav" id="sideNav">
+    <button class="active" data-section="home"><span class="ico">⌂</span> Home</button>
+    <button data-section="discover"><span class="ico">⌕</span> Discover</button>
+    <button data-section="watchlist"><span class="ico">♡</span> Watchlist</button>
+    <button data-section="trending"><span class="ico">↗</span> Trending</button>
+    <button data-section="insights"><span class="ico">◉</span> AI Insights</button>
+  </nav>
+  <div class="side-bottom">YOUR CINEMA, REIMAGINED<br><span style="color:#5cdef5">●</span> AI-powered discovery<br><br>Prototype 01 · CINEAI</div>
 </aside>
 <main class="main" id="home">
-<header class="topbar glass">
-<div class="topbrand"><span class="brandmark">C</span>CINEAI</div>
-<form class="search" id="searchForm"><span>⌕</span><input id="searchInput" type="search" placeholder="Search movies, genres, moods..." aria-label="Search movies"><button aria-label="Search">↵</button></form>
-<div class="top-actions"><button class="round" id="randomBtn" title="Surprise me">✧</button><div class="avatar" title="Profile">◉</div></div>
-</header>
-<section class="hero glass">
-<div>
-<div class="eyebrow">A new dimension of cinema</div>
-<h1>Find your next<br><span>movie universe.</span></h1>
-<p>Discover stories that match your mood. Explore cinematic worlds, uncover hidden gems, and let AI-inspired recommendations guide your next watch.</p>
-<div class="hero-buttons"><button class="btn" id="exploreBtn">Explore movies ↗</button><button class="btn secondary" id="surpriseBtn">✧ Surprise me</button></div>
-</div>
-<div class="hero-art" aria-label="Abstract futuristic AI orb"><div class="orb"></div><div class="orbit"></div><div class="orbit two"></div><div class="ai-chip"><strong>CINE<span style="color:var(--cyan)">AI</span></strong><small>INTELLIGENCE ONLINE</small></div></div>
-</section>
-<section class="section" id="discover">
-<div class="section-head"><div><h2>Your daily stream</h2><p>A handpicked starting point for your next cinematic journey.</p></div><button class="link-btn" id="allMoviesBtn">View all ↗</button></div>
-<div class="feature-grid">
-<article class="featured glass" id="featuredMovie"></article>
-<aside class="mood glass"><div class="mini-label">MOOD WEAVER</div><div class="mood-ring"><span>✧</span></div><h3 style="margin:0 0 7px">What are you feeling?</h3><p>Choose a mood to explore a new cinematic direction.</p><select class="field" id="moodSelect" style="margin-top:14px;max-width:230px"><option value="all">All moods</option><option value="Mind-bending">Mind-bending</option><option value="Hopeful">Hopeful</option><option value="Intense">Intense</option><option value="Dreamy">Dreamy</option><option value="Heartfelt">Heartfelt</option></select></aside>
-</div>
-</section>
-<section class="section" id="trending">
-<div class="section-head"><div><h2 id="collectionTitle">AI-generated collections</h2><p id="collectionSubtitle">Explore a few worlds worth getting lost in.</p></div><button class="link-btn" id="clearSearch">Clear filters</button></div>
-<div class="movie-grid" id="movieGrid"></div>
-</section>
-<section class="section" id="insights">
-<div class="section-head"><div><h2>Deep dive analytics</h2><p>A playful look at the kinds of stories in your collection.</p></div></div>
-<div class="insights-grid">
-<div class="insight glass"><div class="mini-label">GENRE CONSTELLATION</div><h3 style="margin:8px 0">Explore by universe</h3><p>Browse across different cinematic moods and genres.</p><div class="bars"><div class="bar-row"><span>Sci-Fi</span><div class="bar"><i style="width:92%"></i></div><span>92</span></div><div class="bar-row"><span>Thriller</span><div class="bar"><i style="width:76%"></i></div><span>76</span></div><div class="bar-row"><span>Drama</span><div class="bar"><i style="width:64%"></i></div><span>64</span></div><div class="bar-row"><span>Fantasy</span><div class="bar"><i style="width:58%"></i></div><span>58</span></div></div></div>
-<div class="insight glass"><div class="mini-label">YOUR CINEAI TOOLKIT</div><h3 style="margin:8px 0">Made for discovery</h3><p>Try the working prototype features:</p><div class="bars"><div class="bar-row"><span>Search</span><div class="bar"><i style="width:100%"></i></div><span>✓</span></div><div class="bar-row"><span>Ratings</span><div class="bar"><i style="width:100%"></i></div><span>✓</span></div><div class="bar-row"><span>Reviews</span><div class="bar"><i style="width:100%"></i></div><span>✓</span></div><div class="bar-row"><span>Watchlist</span><div class="bar"><i style="width:100%"></i></div><span>✓</span></div></div></div>
-</div>
-</section>
-<footer class="footer">CINEAI · Discover beyond the ordinary · Prototype</footer>
+  <header class="topbar glass">
+    <div class="topbrand"><span class="brandmark">C</span>CINEAI</div>
+    <form class="search" id="searchForm"><span>⌕</span><input id="searchInput" type="search" placeholder='Search movies, genres, moods...' aria-label="Search movies"><button aria-label="Search">↵</button></form>
+    <div class="top-actions"><button class="round" id="randomBtn" title="Surprise me">✧</button><div class="avatar" title="Profile">◉</div></div>
+  </header>
+  <section class="hero glass">
+    <div>
+      <div class="eyebrow">A new dimension of cinema</div>
+      <h1>Find your next<br><span>movie universe.</span></h1>
+      <p>Discover stories that match your mood. Explore cinematic worlds, uncover hidden gems, and let AI-inspired recommendations guide your next watch.</p>
+      <div class="hero-buttons"><button class="btn" id="exploreBtn">Explore movies ↗</button><button class="btn secondary" id="surpriseBtn">✧ Surprise me</button></div>
+    </div>
+    <div class="hero-art" aria-label="Abstract futuristic AI orb"><div class="orb"></div><div class="orbit"></div><div class="orbit two"></div><div class="ai-chip"><strong>CINE<span style="color:var(--cyan)">AI</span></strong><small>INTELLIGENCE ONLINE</small></div></div>
+  </section>
+  <section class="section" id="discover">
+    <div class="section-head"><div><h2>Your daily stream</h2><p>A handpicked starting point for your next cinematic journey.</p></div><button class="link-btn" id="allMoviesBtn">View all ↗</button></div>
+    <div class="feature-grid">
+      <article class="featured glass" id="featuredMovie"></article>
+      <aside class="mood glass"><div class="mini-label">MOOD WEAVER</div><div class="mood-ring"><span>✧</span></div><h3 style="margin:0 0 7px">What are you feeling?</h3><p>Choose a mood to explore a new cinematic direction.</p><select class="field" id="moodSelect" style="margin-top:14px;max-width:230px"><option value="all">All moods</option><option value="Mind-bending">Mind-bending</option><option value="Hopeful">Hopeful</option><option value="Intense">Intense</option><option value="Dreamy">Dreamy</option><option value="Heartfelt">Heartfelt</option></select></aside>
+    </div>
+  </section>
+  <section class="section" id="trending">
+    <div class="section-head"><div><h2 id="collectionTitle">AI-generated collections</h2><p id="collectionSubtitle">Explore a few worlds worth getting lost in.</p></div><button class="link-btn" id="clearSearch">Clear filters</button></div>
+    <div class="movie-grid" id="movieGrid"></div>
+  </section>
+  <section class="section" id="insights">
+    <div class="section-head"><div><h2>Deep dive analytics</h2><p>A playful look at the kinds of stories in your collection.</p></div></div>
+    <div class="insights-grid">
+      <div class="insight glass"><div class="mini-label">GENRE CONSTELLATION</div><h3 style="margin:8px 0">Explore by universe</h3><p>Browse across different cinematic moods and genres.</p><div class="bars"><div class="bar-row"><span>Sci-Fi</span><div class="bar"><i style="width:92%"></i></div><span>92</span></div><div class="bar-row"><span>Thriller</span><div class="bar"><i style="width:76%"></i></div><span>76</span></div><div class="bar-row"><span>Drama</span><div class="bar"><i style="width:64%"></i></div><span>64</span></div><div class="bar-row"><span>Fantasy</span><div class="bar"><i style="width:58%"></i></div><span>58</span></div></div></div>
+      <div class="insight glass"><div class="mini-label">YOUR CINEAI TOOLKIT</div><h3 style="margin:8px 0">Made for discovery</h3><p>Try the working prototype features:</p><div class="bars"><div class="bar-row"><span>Search</span><div class="bar"><i style="width:100%"></i></div><span>✓</span></div><div class="bar-row"><span>Ratings</span><div class="bar"><i style="width:100%"></i></div><span>✓</span></div><div class="bar-row"><span>Reviews</span><div class="bar"><i style="width:100%"></i></div><span>✓</span></div><div class="bar-row"><span>Watchlist</span><div class="bar"><i style="width:100%"></i></div><span>✓</span></div></div></div>
+    </div>
+  </section>
+  <footer class="footer">CINEAI · Discover beyond the ordinary · Prototype</footer>
 </main>
 </div>
 <nav class="mobile-menu" id="mobileNav"><button class="active" data-section="home"><span>⌂</span>Home</button><button data-section="discover"><span>⌕</span>Discover</button><button data-section="watchlist"><span>♡</span>Saved</button><button data-section="trending"><span>↗</span>Trending</button><button data-section="insights"><span>◉</span>Insights</button></nav>
@@ -213,17 +75,27 @@ const movies=[
 {id:7,title:"Soul",year:2020,genre:"Animation · Fantasy",mood:"Hopeful",score:8.0,match:88,desc:"A musician's unexpected detour leads to a gentle, thoughtful exploration of purpose and the small moments that make life.",poster:"https://image.tmdb.org/t/p/w500/hm58Jw4Lw8OIeECIq5qyPYhAeRJ.jpg"},
 {id:8,title:"Her",year:2013,genre:"Romance · Sci-Fi",mood:"Heartfelt",score:8.0,match:87,desc:"In a near future, a lonely writer forms an unusual bond with an advanced operating system that changes how he sees connection.",poster:"https://image.tmdb.org/t/p/w500/lEIaL12hSkN4rD2oDMN8y6U0i5.jpg"}
 ];
-const $=s=>document.querySelector(s);
-const $$=s=>[...document.querySelectorAll(s)];
+const $=s=>document.querySelector(s);const $$=s=>[...document.querySelectorAll(s)];
 let currentMovies=[...movies],activeMovie=null,chosenRating=0,activeFilter="all";
 function safeGet(key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch(e){return fallback}}
 function save(key,value){try{localStorage.setItem(key,JSON.stringify(value))}catch(e){}}
-const getRatings=()=>safeGet("cineai_ratings",{});
-const getComments=()=>safeGet("cineai_comments",{});
-const getWatchlist=()=>safeGet("cineai_watchlist",[]);
+const getRatings=()=>safeGet("cineai_ratings",{}),getComments=()=>safeGet("cineai_comments",{}),getWatchlist=()=>safeGet("cineai_watchlist",[]);
 function avgRating(id){const all=getRatings()[id]||[];return all.length?(all.reduce((a,b)=>a+b,0)/all.length).toFixed(1):null}
 function ratingText(m){const a=avgRating(m.id);return a?`★ ${a} community`:`★ ${m.score} IMDb-style`}
 function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200)}
 function renderFeatured(){const m=movies[0];$("#featuredMovie").innerHTML=`<img class="poster" src="${m.poster}" alt="${m.title} poster" onerror="this.style.visibility='hidden'"><div><div class="mini-label">✦ FEATURED DISCOVERY</div><h3>${m.title}</h3><div class="meta"><span>${m.year}</span><span>${m.genre}</span><span class="score">${m.match}% AI match</span></div><p>${m.desc}</p><div class="feature-actions"><button class="btn" onclick="openMovie(${m.id})">View movie ↗</button><button class="btn secondary" onclick="toggleWatch(${m.id})">♡ Save</button></div></div>`}
-function renderMovies(){
-const q=$("#searchInput").value.trim(
+function renderMovies(){const q=$("#searchInput").value.trim().toLowerCase();let list=[...movies];if(activeFilter==="watchlist"){const saved=getWatchlist();list=list.filter(m=>saved.includes(m.id));$("#collectionTitle").textContent="Your watchlist";$("#collectionSubtitle").textContent="Movies you saved for later."}else{$("#collectionTitle").textContent=q?"Search results":activeFilter==="trending"?"Trending in your universe":"AI-generated collections";$("#collectionSubtitle").textContent=q?`Results for “${q}”`:"A collection of cinematic worlds to explore."}
+if(q)list=list.filter(m=>(m.title+" "+m.genre+" "+m.mood+" "+m.desc).toLowerCase().includes(q));const mood=$("#moodSelect").value;if(mood!=="all")list=list.filter(m=>m.mood===mood);currentMovies=list;$("#movieGrid").innerHTML=list.length?list.map(m=>`<article class="movie-card glass" onclick="openMovie(${m.id})" tabindex="0" role="button" aria-label="Open ${m.title}"><img class="poster" src="${m.poster}" alt="${m.title} poster" loading="lazy" onerror="this.style.background='linear-gradient(140deg,#143b50,#181331)';this.style.minHeight='160px';this.style.visibility='visible'"><div class="movie-info"><h3>${m.title}</h3><div class="meta"><span>${m.year}</span><span>${m.genre.split(" · ")[0]}</span></div><div class="movie-bottom"><span class="tiny-score">${ratingText(m)}</span><button class="tiny-btn" onclick="event.stopPropagation();toggleWatch(${m.id})">${getWatchlist().includes(m.id)?"♥ Saved":"＋ Save"}</button></div></div></article>`).join(""):`<div class="empty">No movies found. Try another title or clear the filters.</div>`}
+function toggleWatch(id){let s=getWatchlist();if(s.includes(id)){s=s.filter(x=>x!==id);toast("Removed from watchlist")}else{s.push(id);toast("Added to watchlist")}save("cineai_watchlist",s);renderMovies();if(activeMovie?.id===id)updateSaveButton()}
+function updateSaveButton(){const b=$("#saveDetail");if(b&&activeMovie)b.textContent=getWatchlist().includes(activeMovie.id)?"♥ Saved to watchlist":"♡ Add to watchlist"}
+function openMovie(id){activeMovie=movies.find(m=>m.id===id);if(!activeMovie)return;chosenRating=0;renderModal();$("#movieModal").classList.add("open");document.body.style.overflow="hidden"}
+function closeMovie(){ $("#movieModal").classList.remove("open");document.body.style.overflow="";activeMovie=null}
+function renderModal(){const m=activeMovie;const comments=getComments()[m.id]||[];const ratings=getRatings()[m.id]||[];const avg=avgRating(m.id);$("#modalContent").innerHTML=`<div class="detail-layout"><img class="poster" src="${m.poster}" alt="${m.title} poster" onerror="this.style.visibility='hidden'"><div><div class="eyebrow">${m.mood} · ${m.year}</div><h2 id="modalTitle" style="font-size:clamp(22px,4vw,32px);margin:9px 0">${m.title}</h2><div class="meta"><span>${m.genre}</span><span class="score">${m.match}% AI match</span></div><p>${m.desc}</p><p><strong>Community rating:</strong> ${avg?`★ ${avg}/10 (${ratings.length} vote${ratings.length===1?"":"s"})`:"No ratings yet"}<br><strong>Reference score:</strong> ${m.score}/10</p><button class="btn secondary" id="saveDetail">♡ Add to watchlist</button></div></div><div class="rating-block"><strong>Rate this movie</strong><div class="stars" id="starPicker" aria-label="Rate from 1 to 10">${Array.from({length:10},(_,i)=>`<button type="button" data-rating="${i+1}" aria-label="${i+1} out of 10" title="${i+1}/10">★</button>`).join("")}</div><div class="rating-note" id="ratingNote">Choose a score from 1 to 10 stars.</div><button class="btn" id="submitRating" style="margin-top:10px">Submit rating</button></div><section style="margin-top:20px"><div class="section-head"><div><h2>Community comments</h2><p>Share your thoughts about this movie.</p></div></div><div class="comment-list" id="commentList">${comments.length?comments.slice().reverse().map(c=>`<div class="comment"><strong>${escapeHtml(c.name||"Movie fan")}</strong><time>${escapeHtml(c.date||"")}</time><p>${escapeHtml(c.text)}</p></div>`).join(""):`<div class="notice">No comments yet. Be the first to share your thoughts.</div>`}</div><form class="comment-form" id="commentForm"><input class="field" id="commentName" maxlength="35" placeholder="Your display name (optional)"><textarea class="field" id="commentText" maxlength="600" required placeholder="What did you think of this movie?"></textarea><button class="btn" type="submit">Post comment ↗</button><div class="notice">Prototype note: ratings and comments are saved only in this browser on this device, not shared across users yet.</div></form></section>`;
+$("#saveDetail").addEventListener("click",()=>toggleWatch(m.id));updateSaveButton();$$('#starPicker button').forEach(b=>b.addEventListener("click",()=>{chosenRating=Number(b.dataset.rating);$$('#starPicker button').forEach(x=>x.classList.toggle("selected",Number(x.dataset.rating)<=chosenRating));$("#ratingNote").textContent=`Your rating: ${chosenRating}/10 stars`}));$("#submitRating").addEventListener("click",()=>{if(!chosenRating){toast("Choose a rating first");return}let all=getRatings();let r=all[m.id]||[];r.push(chosenRating);all[m.id]=r;save("cineai_ratings",all);toast("Rating saved on this device");renderModal();renderMovies()});$("#commentForm").addEventListener("submit",e=>{e.preventDefault();const text=$("#commentText").value.trim();if(!text)return;let all=getComments();all[m.id]=all[m.id]||[];all[m.id].push({name:$("#commentName").value.trim()||"Movie fan",text,date:new Date().toLocaleDateString()});save("cineai_comments",all);toast("Comment saved on this device");renderModal();renderMovies()})}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function goSection(section){if(section==="watchlist"){activeFilter="watchlist";renderMovies();$("#trending").scrollIntoView({behavior:"smooth"});return}activeFilter=section==="trending"?"trending":"all";if(section==="discover"||section==="trending")$("#trending").scrollIntoView({behavior:"smooth"});else if(section==="insights")$("#insights").scrollIntoView({behavior:"smooth"});else window.scrollTo({top:0,behavior:"smooth"});renderMovies();$$("[data-section]").forEach(b=>b.classList.toggle("active",b.dataset.section===section))}
+function surprise(){const m=movies[Math.floor(Math.random()*movies.length)];openMovie(m.id)}
+$("#searchForm").addEventListener("submit",e=>{e.preventDefault();activeFilter="all";renderMovies();$("#trending").scrollIntoView({behavior:"smooth"})});$("#searchInput").addEventListener("input",()=>{activeFilter="all";renderMovies()});$("#moodSelect").addEventListener("change",renderMovies);$("#clearSearch").addEventListener("click",()=>{$("#searchInput").value="";$("#moodSelect").value="all";activeFilter="all";renderMovies()});$("#allMoviesBtn").addEventListener("click",()=>{$("#searchInput").value="";$("#moodSelect").value="all";activeFilter="all";renderMovies();$("#trending").scrollIntoView({behavior:"smooth"})});$("#exploreBtn").addEventListener("click",()=>goSection("discover"));$("#surpriseBtn").addEventListener("click",surprise);$("#randomBtn").addEventListener("click",surprise);$("#closeModal").addEventListener("click",closeMovie);$("#movieModal").addEventListener("click",e=>{if(e.target===$("#movieModal"))closeMovie()});document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMovie();if((e.key==="Enter"||e.key===" ")&&e.target.classList.contains("movie-card"))openMovie(Number(e.target.querySelector(".tiny-btn").closest(".movie-card").getAttribute("onclick").match(/\d+/)?.[0]))});$$("[data-section]").forEach(b=>b.addEventListener("click",()=>goSection(b.dataset.section)));renderFeatured();renderMovies();
+</script>
+</body>
+</html>
