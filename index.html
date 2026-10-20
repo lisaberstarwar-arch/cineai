@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b14">
+<title>CINEAI | AI Movie Universe</title>
+
+<style>
+:root {
+  --bg: #080b14;
+  --panel: #111827;
+  --line: #263449;
+  --blue: #64e7ff;
+  --purple: #a78bfa;
+  --text: #f5f7ff;
+  --muted: #9ba9c0;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #080b14ed;
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--line);
+  padding: 16px 5%;
+}
+.nav {
+  max-width: 1400px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.logo {
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+.logo span { color: var(--blue); }
+.search {
+  flex: 1;
+  max-width: 520px;
+  display: flex;
+  gap: 8px;
+}
+input, textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 14px;
+  background: #141d2c;
+  border: 1px solid #33445e;
+  border-radius: 10px;
+  color: white;
+  outline: none;
+}
+input:focus, textarea:focus {
+  border-color: var(--blue);
+}
+.btn {
+  padding: 11px 16px;
+  border: 1px solid #3b526c;
+  background: #172337;
+  color: white;
+  border-radius: 10px;
+}
+.btn.primary {
+  background: linear-gradient(110deg, #168bb4, #6551d8);
+  border: 0;
+}
+.hero {
+  padding: 65px 5% 55px;
+  background:
+    radial-gradient(ellipse at 80% 20%, #493b833d, transparent 45%),
+    radial-gradient(ellipse at 10% 70%, #00cfff20, transparent 45%);
+  border-bottom: 1px solid var(--line);
+}
+.hero-inner {
+  max-width: 1400px;
+  margin: auto;
+}
+.eyebrow {
+  color: var(--blue);
+  font-size: 12px;
+  letter-spacing: 4px;
+  font-weight: bold;
+}
+h1 {
+  font-size: clamp(38px, 7vw, 76px);
+  line-height: 1.05;
+  margin: 18px 0;
+  letter-spacing: -2px;
+}
+h1 span {
+  color: var(--blue);
+  text-shadow: 0 0 30px #64e7ff40;
+}
+.hero p {
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 590px;
+}
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+.stats {
+  display: flex;
+  gap: 35px;
+  flex-wrap: wrap;
+  margin-top: 35px;
+}
+.stat strong {
+  display: block;
+  font-size: 23px;
+  color: var(--blue);
+}
+.stat small { color: var(--muted); }
+main {
+  max-width: 1400px;
+  margin: auto;
+  padding: 35px 5% 70px;
+}
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 35px 0 20px;
+}
+h2 { font-size: 23px; margin: 0; }
+.section-title p { color: var(--muted); margin: 8px 0 0; }
+.filters {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+.filter {
+  padding: 9px 15px;
+  border-radius: 30px;
+  border: 1px solid #34445a;
+  background: #111827;
+  color: #c6d2e5;
+}
+.filter.active {
+  background: #163b50;
+  color: var(--blue);
+  border-color: var(--blue);
+}
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+.movie {
+  overflow: hidden;
+  background: var(--panel);
+  border: 1px solid #25354a;
+  border-radius: 15px;
+  transition: transform .2s, border-color .2s;
+}
+.movie:hover {
+  transform: translateY(-4px);
+  border-color: var(--blue);
+}
+.poster {
+  height: 220px;
+  position: relative;
+  display: flex;
+  align-items: end;
+  padding: 17px;
+  overflow: hidden;
+}
+.poster::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #070a12 0%, transparent 75%);
+}
+.poster::after {
+  content: "";
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  border: 1px solid #ffffff20;
+  top: -35px;
+  right: -45px;
+  box-shadow: 0 0 55px #ffffff18, inset 0 0 45px #ffffff15;
+}
+.poster-art {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 76px;
+  opacity: .8;
+  text-shadow: 0 0 35px #ffffff60;
+}
+.poster-name {
+  position: relative;
+  z-index: 1;
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.movie-info { padding: 15px; }
+.movie-info h3 { margin: 0 0 9px; font-size: 17px; }
+.meta { color: var(--muted); font-size: 12px; }
+.rating-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 13px 0;
+  gap: 5px;
+}
+.score { color: #ffd978; font-weight: bold; }
+.movie-info .btn { width: 100%; }
+.badge {
+  display: inline-block;
+  padding: 5px 8px;
+  font-size: 10px;
+  color: var(--blue);
+  background: #163b503d;
+  border: 1px solid #64e7ff35;
+  border-radius: 5px;
+  margin-bottom: 9px;
+}
+.empty {
+  color: var(--muted);
+  padding: 25px 0;
+  grid-column: 1/-1;
+}
+.panel {
+  margin-top: 35px;
+  padding: 25px;
+  border: 1px solid var(--line);
+  background: linear-gradient(135deg, #111b2b, #0d1120);
+  border-radius: 16px;
+}
+.panel p { color: var(--muted); line-height: 1.7; }
+.panel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.comment {
+  border-top: 1px solid var(--line);
+  padding: 15px 0;
+}
+.comment strong { color: var(--blue); }
+.comment p { margin: 8px 0; }
+.stars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 12px 0 18px;
+}
+.star {
+  border: 1px solid #34445a;
+  color: #ffd978;
+  background: #151e2d;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.star.active {
+  background: #66501b;
+  border-color: #ffd978;
+}
+#reviewStatus { color: var(--blue); }
+footer {
+  padding: 28px 5%;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  line-height: 1.8;
+}
+@media(max-width:900px) {
+  .movie-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .poster { height: 190px; }
+}
+@media(max-width:520px) {
+  header { padding: 13px 4%; }
+  .nav { flex-wrap: wrap; }
+  .logo { font-size: 23px; }
+  .search { order: 3; flex-basis: 100%; max-width: none; }
+  .hero { padding: 42px 5%; }
+  main { padding: 22px 4% 50px; }
+  .poster { height: 160px; padding: 10px; }
+  .poster-art { font-size: 55px; }
+  .poster-name { font-size: 16px; }
+  .movie-info { padding: 11px; }
+  .movie-info h3 { font-size: 15px; }
+  .movie-info .btn { padding: 10px 5px; font-size: 12px; }
+  .panel { padding: 17px; }
+  .panel-grid { grid-template-columns: 1fr; }
+  .stats { gap: 22px; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="nav">
+    <a class="logo" href="#">CINE<span>AI</span></a>
+    <div class="search">
+      <input id="searchInput" placeholder="ค้นหาหนัง / Search movies...">
+      <button class="btn primary" onclick="renderMovies()">⌕</button>
+    </div>
+    <button class="btn" id="langBtn" onclick="toggleLanguage()">EN</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">THE FUTURE OF CINEMA</div>
+    <h1 id="heroTitle">โลกภาพยนตร์<br><span>แห่งอนาคต</span></h1>
+    <p id="heroDesc">ค้นพบภาพยนตร์ที่ใช่สำหรับคุณ ด้วยประสบการณ์ค้นหาหนังและคอลเลกชันที่ขับเคลื่อนด้วย AI ในโลกแห่งภาพยนตร์ที่ไม่สิ้นสุด</p>
+    <div class="hero-actions">
+      <button class="btn primary" onclick="document.getElementById('discover').scrollIntoView({behavior:'smooth'})" id="exploreBtn">ค้นพบภาพยนตร์ →</button>
+      <button class="btn" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'})" id="reviewBtn">คะแนนและรีวิว</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>AI</strong><small id="stat1">ค้นพบสิ่งที่ใช่</small></div>
+      <div class="stat"><strong>1–10</strong><small id="stat2">ให้คะแนนภาพยนตร์</small></div>
+      <div class="stat"><strong>∞</strong><small id="stat3">เรื่องราวไร้ขีดจำกัด</small></div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <section id="discover">
+    <div class="section-title">
+      <div>
+        <h2 id="discoverTitle">ค้นพบภาพยนตร์</h2>
+        <p id="discoverDesc">สำรวจเรื่องราวที่คุณอาจหลงรัก</p>
+      </div>
+      <span class="badge">AI COLLECTION</span>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="movie-grid" id="movieGrid"></div>
+  </section>
+
+  <section class="panel">
+    <div class="section-title">
+      <div>
+        <h2 id="collectionTitle">AI Generated Collections</h2>
+        <p id="collectionDesc">คอลเลกชันที่คัดสรรตามแนวภาพยนตร์</p>
+      </div>
+    </div>
+    <div class="filters">
+      <button class="filter" onclick="chooseGenre('Sci-Fi')">🚀 Sci-Fi Futures</button>
+      <button class="filter" onclick="chooseGenre('Action')">⚡ Action Universe</button>
+      <button class="filter" onclick="chooseGenre('Drama')">🌌 Emotional Stories</button>
+      <button class="filter" onclick="chooseGenre('All')">✦ All Worlds</button>
+    </div>
+    <p id="collectionNote">ค้นพบภาพยนตร์จากคอลเลกชันตัวอย่าง และค้นหาเรื่องโปรดของคุณได้ทันที</p>
+  </section>
+
+  <section class="panel" id="reviews">
+    <div class="section-title">
+      <div>
+        <h2 id="reviewTitle">คะแนนและความคิดเห็น</h2>
+        <p id="reviewDesc">แบ่งปันมุมมองของคุณกับชุมชนคนรักหนัง</p>
+      </div>
+    </div>
+
+    <label for="movieSelect" id="movieLabel">เลือกภาพยนตร์</label>
+    <select id="movieSelect" onchange="showReviews()" style="width:100%;margin:10px 0;background:#141d2c;color:white;padding:12px;border-radius:9px;border:1px solid #33445e"></select>
+
+    <div class="panel-grid">
+      <div>
+        <h3 id="rateHeading">ให้คะแนนภาพยนตร์</h3>
+        <p id="rateDesc">เลือกคะแนนตั้งแต่ 1 ถึง 10</p>
+        <div class="stars" id="starPicker"></div>
+        <p id="chosenScore">คะแนนที่เลือก: 0/10</p>
+      </div>
+      <div>
+        <h3 id="commentHeading">เขียนความคิดเห็น</h3>
+        <input id="userName" maxlength="40" placeholder="ชื่อของคุณ / Your name">
+        <textarea id="commentInput" rows="4" maxlength="1000" style="margin-top:10px" placeholder="คุณคิดอย่างไรกับภาพยนตร์เรื่องนี้?"></textarea>
+        <button class="btn primary" style="margin-top:10px" onclick="submitReview()" id="submitBtn">ส่งรีวิว</button>
+        <p id="reviewStatus" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h2 id="communityTitle">รีวิวจากผู้ชม</h2>
+      <span id="averageScore" class="score">★ --/10</span>
+    </div>
+    <div id="reviewList"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="logo">CINE<span>AI</span></div>
+  <div id="footerText">ค้นพบโลกภาพยนตร์ในมุมมองใหม่</div>
+  <small>© 2026 CINEAI · AI Movie Universe</small>
+</footer>
+
+<script>
+const movies = [
+  {id:1,th:"มหานครแห่งดวงดาว",en:"City of Stars",year:2026,genre:"Sci-Fi",art:"🌃",color:"linear-gradient(135deg,#112b59,#702c8b,#080b14)",desc:"เมืองแห่งอนาคตและความลับของจักรวาล"},
+  {id:2,th:"เงาเหนือโลก",en:"Beyond the Shadows",year:2025,genre:"Action",art:"⚔️",color:"linear-gradient(135deg,#541d35,#bd542e,#080b14)",desc:"ภารกิจที่เปลี่ยนชะตาของมนุษยชาติ"},
+  {id:3,th:"ความทรงจำสุดท้าย",en:"The Last Memory",year:2026,genre:"Drama",art:"🌙",color:"linear-gradient(135deg,#173b51,#674c9c,#080b14)",desc:"ความทรงจำหนึ่งเดียวที่ไม่อาจลืม"},
+  {id:4,th:"ผู้พิทักษ์กาแล็กซี",en:"Galaxy Guardians",year:2025,genre:"Sci-Fi",art:"🪐",color:"linear-gradient(135deg,#103b48,#2466a0,#080b14)",desc:"การเดินทางข้ามขอบเขตของอวกาศ"},
+  {id:5,th:"ปฏิบัติการรัตติกาล",en:"Midnight Protocol",year:2026,genre:"Action",art:"🌆",color:"linear-gradient(135deg,#34264e,#176b85,#080b14)",desc:"เกมไล่ล่าที่ไม่มีใครไว้ใจใครได้"},
+  {id:6,th:"ก่อนรุ่งอรุณ",en:"Before Sunrise",year:2025,genre:"Drama",art:"🌅",color:"linear-gradient(135deg,#7b3b50,#d58a4b,#17152d)",desc:"เรื่องราวของความหวังและการเริ่มต้นใหม่"},
+  {id:7,th:"ประตูมิติ",en:"The Dimension Gate",year:2026,genre:"Sci-Fi",art:"🌀",color:"linear-gradient(135deg,#17396b,#5544c4,#080b14)",desc:"ประตูสู่โลกที่ไม่มีใครเคยเห็น"},
+  {id:8,th:"นักล่าคนสุดท้าย",en:"The Last Hunter",year:2025,genre:"Action",art:"🏙️",color:"linear-gradient(135deg,#513327,#8e5945,#080b14)",desc:"การต่อสู้เพื่ออนาคตที่ยังเหลืออยู่"}
+];
+
+let lang = "th";
+let activeGenre = "All";
+let chosenRating = 0;
+
+const translations = {
+ th:{
+  search:"ค้นหาหนัง / Search movies...",hero:"โลกภาพยนตร์<br><span>แห่งอนาคต</span>",
+  desc:"ค้นพบภาพยนตร์ที่ใช่สำหรับคุณ ด้วยประสบการณ์ค้นหาหนังและคอลเลกชันที่ขับเคลื่อนด้วย AI ในโลกแห่งภาพยนตร์ที่ไม่สิ้นสุด",
+  explore:"ค้นพบภาพยนตร์ →",reviewBtn:"คะแนนและรีวิว",stat1:"ค้นพบสิ่งที่ใช่",stat2:"ให้คะแนนภาพยนตร์",stat3:"เรื่องราวไร้ขีดจำกัด",
+  discover:"ค้นพบภาพยนตร์",discoverDesc:"สำรวจเรื่องราวที่คุณอาจหลงรัก",collection:"AI Generated Collections",
+  collectionDesc:"คอลเลกชันที่คัดสรรตามแนวภาพยนตร์",note:"ค้นพบภาพยนตร์จากคอลเลกชันตัวอย่าง และค้นหาเรื่องโปรดของคุณได้ทันที",
+  reviews:"คะแนนและความคิดเห็น",reviewDesc:"แบ่งปันมุมมองของคุณกับชุมชนคนรักหนัง",movieLabel:"เลือกภาพยนตร์",
+  rate:"ให้คะแนนภาพยนตร์",rateDesc:"เลือกคะแนนตั้งแต่ 1 ถึง 10",comment:"เขียนความคิดเห็น",
+  commentPlaceholder:"คุณคิดอย่างไรกับภาพยนตร์เรื่องนี้?",submit:"ส่งรีวิว",community:"รีวิวจากผู้ชม",
+  footer:"ค้นพบโลกภาพยนตร์ในมุมมองใหม่",all:"ทั้งหมด",SciFi:"ไซไฟ",Action:"แอ็กชัน",Drama:"ดราม่า",
+  details:"ให้คะแนน / รีวิว",rating:"คะแนน",votes:"คะแนนจากผู้ใช้",selected:"คะแนนที่เลือก: ",
+  name:"ชื่อของคุณ / Your name",empty:"ยังไม่มีรีวิว มาเป็นคนแรกที่แสดงความคิดเห็นกัน!",
+  success:"ส่งรีวิวเรียบร้อยแล้ว",need:"กรุณาเลือกคะแนนและเขียนความคิดเห็นก่อนส่ง",
+  avg:"คะแนนเฉลี่ย",filter:"ประเภท"
+ },
+ en:{
+  search:"Search movies...",hero:"THE FUTURE OF<br><span>CINEMA</span>",
+  desc:"Discover movies made for your taste. Explore AI-inspired collections and find your next cinematic obsession.",
+  explore:"Explore Movies →",reviewBtn:"Ratings & Reviews",stat1:"Discover your next favorite",stat2:"Rate every movie",stat3:"Stories without limits",
+  discover:"Discover Movies",discoverDesc:"Explore stories you might love",collection:"AI Generated Collections",
+  collectionDesc:"Curated cinematic worlds",note:"Explore our sample movie collection and search for your next favorite.",
+  reviews:"Ratings & Reviews",reviewDesc:"Share your perspective with the movie community",movieLabel:"Select a movie",
+  rate:"Rate This Movie",rateDesc:"Choose a score from 1 to 10",comment:"Write a Review",
+  commentPlaceholder:"What do you think about this movie?",submit:"Submit Review",community:"Community Reviews",
+  footer:"Discover cinema from a new perspective",all:"All",SciFi:"Sci-Fi",Action:"Action",Drama:"Drama",
+  details:"Rate / Review",rating:"Rating",votes:"user ratings",selected:"Selected rating: ",
+  name:"Your name",empty:"No reviews yet. Be the first to share your thoughts!",
+  success:"Review submitted successfully",need:"Please select a rating and write a review first.",
+  avg:"Average rating",filter:"Genre"
+ }
+};
+
+function t(key){return translations[lang][key] || key;}
+
+function movieName(m){return lang==="th"?m.th:m.en;}
+function genreName(g){
+ if(g==="Sci-Fi")return t("SciFi");
+ if(g==="Action")return t("Action");
+ if(g==="Drama")return t("Drama");
+ return t("all");
+}
+function getReviews(){
+ try{return JSON.parse(localStorage.getItem("cineai_reviews")||"{}");}
+ catch(e){return {};}
+}
+function saveReviews(data){
+ try{
+  localStorage.setItem("cineai_reviews",JSON.stringify(data));
+  return true;
+ }catch(e){return false;}
+}
+function getMovieReviews(id){return getReviews()[id]||[];}
+
+function renderFilters(){
+ const genres=["All","Sci-Fi","Action","Drama"];
+ document.getElementById("filters").innerHTML=genres.map(g=>
+ `<button class="filter ${activeGenre===g?'active':''}" onclick="chooseGenre('${g}')">${genreName(g)}</button>`
+ ).join("");
+}
+
+function chooseGenre(g){
+ activeGenre=g;
+ renderFilters();
+ renderMovies();
+}
+
+function renderMovies(){
+ const q=document.getElementById("searchInput").value.toLowerCase().trim();
+ const list=movies.filter(m=>{
+  const matchGenre=activeGenre==="All"||m.genre===activeGenre;
+  const matchSearch=(m.th+" "+m.en+" "+m.genre+" "+m.desc).toLowerCase().includes(q);
+  return matchGenre&&matchSearch;
+ });
+ const grid=document.getElementById("movieGrid");
+ if(!list.length){
+  grid.innerHTML=`<p class="empty">${lang==="th"?"ไม่พบภาพยนตร์ที่ค้นหา":"No movies found."}</p>`;
+  return;
+ }
+ grid.innerHTML=list.map(m=>{
+  const reviews=getMovieReviews(m.id);
+  const avg=reviews.length?(reviews.reduce((s,r)=>s+r.rating,0)/reviews.length).toFixed(1):"—";
+  return `<article class="movie">
+   <div class="poster" style="background:${m.color}">
+    <div class="poster-art">${m.art}</div>
+    <div class="poster-name">${movieName(m).toUpperCase()}</div>
+   </div>
+   <div class="movie-info">
+    <span class="badge">${genreName(m.genre)}</span>
+    <h3>${movieName(m)}</h3>
+    <div class="meta">${m.year} · ${m.genre}</div>
+    <div class="rating-line">
+     <span class="score">★ ${avg}/10</span>
+     <span class="meta">${reviews.length} ${lang==="th"?"รีวิว":"reviews"}</span>
+    </div>
+    <button class="btn" onclick="selectMovie(${m.id})">${t("details")}</button>
+   </div>
+  </article>`;
+ }).join("");
+}
+
+function fillMovieSelect(){
+ const sel=document.getElementById("movieSelect");
+ const old=Number(sel.value)||movies[0].id;
+ sel.innerHTML=movies.map(m=>`<option value="${m.id}">${movieName(m)}</option>`).join("");
+ sel.value=String(movies.some(m=>m.id===old)?old:movies[0].id);
+}
+
+function selectMovie(id){
+ document.getElementById("movieSelect").value=String(id);
+ chosenRating=0;
+ renderStars();
+ showReviews();
+ document.getElementById("reviews").scrollIntoView({behavior:"smooth"});
+}
+
+function renderStars(){
+ const picker=document.getElementById("starPicker");
+ picker.innerHTML=Array.from({length:10},(_,i)=>{
+  const n=i+1;
+  return `<button class="star ${chosenRating===n?'active':''}" onclick="setRating(${n})" aria-label="${n}/10">${n}</button>`;
+ }).join("");
+ document.getElementById("chosenScore").textContent=t("selected")+chosenRating+"/10";
+}
+function setRating(n){chosenRating=n;renderStars();}
+
+function showReviews(){
+ const id=Number(document.getElementById("movieSelect").value);
+ const reviews=getMovieReviews(id);
+ const avg=reviews.length?(reviews.reduce((s,r)=>s+r.rating,0)/reviews.length).toFixed(1):"—";
+ document.getElementById("averageScore").textContent="★ "+avg+"/10";
+ const box=document.getElementById("reviewList");
+ if(!reviews.length){
+  box.innerHTML=`<p class="meta">${t("empty")}</p>`;
+  return;
+ }
+ box.innerHTML=[...reviews].reverse().map(r=>`
+ <div class="comment">
+  <strong>${escapeHTML(r.name)}</strong>
+  <span class="score"> · ★ ${r.rating}/10</span>
+  <p>${escapeHTML(r.comment).replace(/\n/g,"<br>")}</p>
+  <small class="meta">${escapeHTML(r.date)}</small>
+ </div>`).join("");
+}
+
+function escapeHTML(str){
+ return String(str).replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+
+function submitReview(){
+ const id=Number(document.getElementById("movieSelect").value);
+ const name=document.getElementById("userName").value.trim()||(lang==="th"?"ผู้ชม":"Viewer");
+ const comment=document.getElementById("commentInput").value.trim();
+ const status=document.getElementById("reviewStatus");
+ if(!chosenRating||!comment){
+  status.textContent=t("need");
+  return;
+ }
+ const data=getReviews();
+ if(!data[id])data[id]=[];
+ data[id].push({
+  name:name.slice(0,40),
+  rating:chosenRating,
+  comment:comment.slice(0,1000),
+  date:new Date().toLocaleDateString(lang==="th"?"th-TH":"en-GB")
+ });
+ if(!saveReviews(data)){
+  status.textContent=lang==="th"?"บันทึกไม่สำเร็จ กรุณาตรวจสอบพื้นที่จัดเก็บเบราว์เซอร์":"Could not save. Check browser storage.";
+  return;
+ }
+ document.getElementById("commentInput").value="";
+ chosenRating=0;
+ renderStars();
+ showReviews();
+ renderMovies();
+ status.textContent=t("success");
+}
+
+function toggleLanguage(){
+ lang=lang==="th"?"en":"th";
+ document.documentElement.lang=lang;
+ document.getElementById("langBtn").textContent=lang==="th"?"EN":"ไทย";
+ document.getElementById("searchInput").placeholder=t("search");
+ document.getElementById("heroTitle").innerHTML=t("hero");
+ document.getElementById("heroDesc").textContent=t("desc");
+ document.getElementById("explore
