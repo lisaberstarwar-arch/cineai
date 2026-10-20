@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINEAI | โลกแห่งภาพยนตร์ AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090a12;color:#f5f5ff;font-family:Arial,sans-serif}
+header{padding:20px 6%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #252538;background:#0c0c16}
+.logo{font-size:27px;font-weight:900;color:#a78bfa}
+.logo span{color:#fff}
+nav a{color:#ccc;text-decoration:none;margin-left:18px;font-size:14px}
+.hero{padding:55px 6%;background:radial-gradient(ellipse at top right,#392064 0%,#141226 45%,#090a12 80%)}
+.tag{color:#c4b5fd;font-size:12px;letter-spacing:3px}
+h1{font-size:clamp(36px,7vw,64px);margin:18px 0;line-height:1.12}
+h1 span{color:#a78bfa}
+.hero p{color:#c0bfd2;line-height:1.8;max-width:500px}
+.search{display:flex;gap:8px;margin-top:25px;max-width:520px}
+input,textarea{background:#151522;border:1px solid #38354e;color:white;padding:13px;border-radius:9px;font:inherit;min-width:0}
+.search input{flex:1}
+button{background:#8b5cf6;border:0;color:white;border-radius:9px;padding:12px 18px;font-weight:bold;cursor:pointer}
+main{padding:30px 6%}
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px}
+h2{font-size:23px}
+.section-title span{color:#a78bfa;font-size:12px}
+.movies{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.movie{background:#12121f;border:1px solid #28263a;border-radius:13px;overflow:hidden}
+.poster{height:155px;display:flex;align-items:center;justify-content:center;font-size:56px;background:linear-gradient(135deg,#292052,#101a32)}
+.poster.two{background:linear-gradient(135deg,#4b202f,#181526)}
+.poster.three{background:linear-gradient(135deg,#17444a,#17152b)}
+.movie-info{padding:13px}
+.movie h3{margin:5px 0 8px;font-size:16px}
+.meta{font-size:12px;color:#aaa;line-height:1.8}
+.rating{color:#fbbf24;margin:10px 0;font-size:13px}
+.rate-buttons{display:flex;flex-wrap:wrap;gap:4px}
+.rate-buttons button{padding:5px 7px;font-size:11px;background:#29243d}
+.rate-buttons button.selected{background:#8b5cf6}
+.comment-section{margin-top:35px;background:#12121f;border:1px solid #28263a;border-radius:13px;padding:20px}
+.comment-section p{color:#aaa;font-size:13px;line-height:1.7}
+.comment-section textarea{width:100%;min-height:85px;resize:vertical;margin:10px 0}
+.comment-list{margin-top:16px}
+.comment{padding:12px 0;border-bottom:1px solid #292638;color:#ddd;overflow-wrap:anywhere}
+footer{text-align:center;padding:28px;color:#777;font-size:12px;border-top:1px solid #252538;margin-top:30px}
+@media(max-width:520px){
+ header{padding:17px 5%}
+ nav a{margin-left:8px;font-size:12px}
+ .hero{padding:42px 5%}
+ main{padding:20px 5%}
+ .movies{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .poster{height:125px}
+ .movie-info{padding:10px}
+ h2{font-size:20px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">CINE<span>AI</span></div>
+  <nav>
+    <a href="#movies">ภาพยนตร์</a>
+    <a href="#community">รีวิว</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="tag">THE FUTURE OF CINEMA</div>
+  <h1>ค้นพบโลกแห่ง<br><span>ภาพยนตร์</span> รูปแบบใหม่</h1>
+  <p>สำรวจเรื่องราวจากทั่วจักรวาล ค้นหาหนังเรื่องโปรด ให้คะแนน และแบ่งปันความคิดเห็นกับคนรักหนัง</p>
+  <div class="search">
+    <input id="search" placeholder="ค้นหาชื่อภาพยนตร์..." oninput="filterMovies()">
+    <button onclick="filterMovies()">ค้นหา</button>
+  </div>
+</section>
+
+<main>
+  <section id="movies">
+    <div class="section-title">
+      <h2>ภาพยนตร์แนะนำ</h2>
+      <span>DISCOVER • RATE • REVIEW</span>
+    </div>
+    <div class="movies" id="movieGrid">
+      <article class="movie" data-name="จักรวาลอนาคต">
+        <div class="poster">🌌</div>
+        <div class="movie-info">
+          <h3>จักรวาลอนาคต</h3>
+          <div class="meta">ไซไฟ · ผจญภัย · 2026</div>
+          <div class="rating" id="rating-1">★ คะแนนของคุณ: ยังไม่มี</div>
+          <div class="rate-buttons" data-id="1">
+            <button onclick="rate(1,2)">2</button>
+            <button onclick="rate(1,4)">4</button>
+            <button onclick="rate(1,6)">6</button>
+            <button onclick="rate(1,8)">8</button>
+            <button onclick="rate(1,10)">10</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="movie" data-name="เงาแห่งรัตติกาล">
+        <div class="poster two">🌙</div>
+        <div class="movie-info">
+          <h3>เงาแห่งรัตติกาล</h3>
+          <div class="meta">แฟนตาซี · ลึกลับ · 2026</div>
+          <div class="rating" id="rating-2">★ คะแนนของคุณ: ยังไม่มี</div>
+          <div class="rate-buttons" data-id="2">
+            <button onclick="rate(2,2)">2</button>
+            <button onclick="rate(2,4)">4</button>
+            <button onclick="rate(2,6)">6</button>
+            <button onclick="rate(2,8)">8</button>
+            <button onclick="rate(2,10)">10</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="movie" data-name="มหาสมุทรลึกลับ">
+        <div class="poster three">🌊</div>
+        <div class="movie-info">
+          <h3>มหาสมุทรลึกลับ</h3>
+          <div class="meta">ผจญภัย · ดราม่า · 2026</div>
+          <div class="rating" id="rating-3">★ คะแนนของคุณ: ยังไม่มี</div>
+          <div class="rate-buttons" data-id="3">
+            <button onclick="rate(3,2)">2</button>
+            <button onclick="rate(3,4)">4</button>
+            <button onclick="rate(3,6)">6</button>
+            <button onclick="rate(3,8)">8</button>
+            <button onclick="rate(3,10)">10</button>
+          </div>
+        </div>
+      </article>
+    </div>
+    <p id="noResults" style="display:none;color:#aaa">ไม่พบภาพยนตร์ที่ค้นหา</p>
+  </section>
+
+  <section class="comment-section" id="community">
+    <h2>ชุมชนคนรักหนัง</h2>
+    <p>ทดลองเขียนรีวิวภาพยนตร์ของคุณได้ที่นี่</p>
+    <input id="commentName" placeholder="ชื่อของคุณ" style="width:100%">
+    <textarea id="commentText" placeholder="คุณรู้สึกอย่างไรกับภาพยนตร์?"></textarea>
+    <button onclick="addComment()">ส่งความคิดเห็น</button>
+    <div class="comment-list" id="commentList"></div>
+    <p>หมายเหตุ: ความคิดเห็นและคะแนนในรุ่นทดลองนี้ยังไม่ถูกบันทึกลงฐานข้อมูลส่วนกลาง</p>
+  </section>
+</main>
+
+<footer>© 2026 CINEAI · YOUR NEXT MOVIE EXPERIENCE</footer>
+
+<script>
+function rate(id,score){
+  document.getElementById('rating-'+id).textContent='★ คะแนนของคุณ: '+score+'/10';
+  document.querySelectorAll('.rate-buttons[data-id="'+id+'"] button').forEach(b=>{
+    b.classList.toggle('selected',Number(b.textContent)===score);
+  });
+}
+function filterMovies(){
+  const q=document.getElementById('search').value.trim().toLowerCase();
+  let count=0;
+  document.querySelectorAll('.movie').forEach(movie=>{
+    const match=movie.dataset.name.toLowerCase().includes(q);
+    movie.style.display=match?'':'none';
+    if(match)count++;
+  });
+  document.getElementById('noResults').style.display=count?'none':'block';
+}
+function addComment(){
+  const name=document.getElementById('commentName').value.trim();
+  const text=document.getElementById('commentText').value.trim();
+  if(!name||!text){alert('กรุณากรอกชื่อและความคิดเห็น');return}
+  const item=document.createElement('div');
+  item.className='comment';
+  const title=document.createElement('strong');
+  title.textContent=name+' ';
+  const body=document.createElement('div');
+  body.textContent=text;
+  item.append(title,body);
+  document.getElementById('commentList').prepend(item);
+  document.getElementById('commentText').value='';
+}
+</script>
+</body>
+</html>
