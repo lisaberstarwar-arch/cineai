@@ -415,7 +415,14 @@ const SUPABASE_KEY = "sb_publishable_CmwC93CrODW7eU-OTed5KA_zdb6KITE";
 
     try {
       if (mode === "signup") {
-        const { data, error } = await supabase.auth.signUp({ email, password });
+const { data, error } = await supabase.auth.signUp({
+  email,
+  password,
+  options: {
+    emailRedirectTo: "https://lisaberstarwar-arch.github.io/cineai/"
+  }
+});
+
         if (error) throw error;
 
         if (!data.session) {
